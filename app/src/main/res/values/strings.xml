@@ -3,4 +3,18 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="id_hint">아이디를 입력하세요</string>
+    <string name="password_hint">비밀번호를 입력하세요</string>
+    <string name="text_register">회원가입</string>
+    <string name="text_login">로그인</string>
+    <string name="text_male">남자</string>
+    <string name="text_female">여자</string>
+    <string name="text_sex">성별</string>
+    <string name="text_department">학과</string>
+    <string name="text_duplicate_check">중복확인</string>
+    <string name="text_email">이메일</string>
+    <string name="text_student_number">학번</string>
+    <string name="text_name">이름</string>
+    <string name="text_splash">아주대학교\nWiki</string>
+    <string name="description_splash_logo">Ajou University logo</string>
 </resources>

@@ -13,6 +13,23 @@ class RegisterActivity : AppCompatActivity() {
         mBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var isStudentNumberDupChecked = false;
+        var isEmailDupChecked = false;
 
+        binding.registerStudentNumberCheck.setOnClickListener {
+            // TODO: 학번 중복체크
+            if (isStudentNumberDupChecked && isEmailDupChecked)
+                binding.registerButton.isEnabled = true
+        }
+
+        binding.registerEmailCheck.setOnClickListener {
+            // TODO: 이메일 중복체크
+            if (isStudentNumberDupChecked && isEmailDupChecked)
+                binding.registerButton.isEnabled = true
+        }
+
+        binding.registerButton.setOnClickListener {
+            // TODO: 회원가입 처리
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.ajoudb.ajouwiki
+package com.ajoudb.ajouwiki.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

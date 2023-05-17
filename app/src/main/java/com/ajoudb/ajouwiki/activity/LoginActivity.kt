@@ -1,4 +1,4 @@
-package com.ajoudb.ajouwiki
+package com.ajoudb.ajouwiki.activity
 
 import android.content.Intent
 import android.os.Bundle

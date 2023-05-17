@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface SignUpService {
     @Headers("Content-Type: application/json")
-    @POST("users")
+    @POST("users/")
     fun signUpUserByEnqueue(@Body userInfo: SignUpRequestBody): Call<SignUpResponseBody>
 }

@@ -1,5 +1,6 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
+import android.util.Log
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailResponseBody
@@ -74,8 +75,9 @@ class RetrofitWork {
                     if (response.isSuccessful) {
                         val result = response.body()
                         val statusCode = result?.status
+                        Log.d("statuscode", "$statusCode")
                         if (statusCode == "200") onSuccessful()
-                        else if (statusCode == "403") onFailure(1)
+                        else onFailure(1)
                     }
                 }
                 override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {

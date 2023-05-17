@@ -18,7 +18,7 @@ class MyPageActivity : AppCompatActivity() {
         val userInfo = intent.intentSerializable("user_info", UserInfo::class.java) as UserInfo
 
         binding.myNameInput.text = userInfo.name
-        binding.myStudentNumberInput.text = userInfo.studentNumber
+        binding.myStudentNumberInput.text = userInfo.student_id
         binding.myDepartmertInput.text = userInfo.department
         binding.myEmailInput.text = userInfo.email
         if (userInfo.sex == "man")

@@ -78,7 +78,6 @@ class RegisterActivity : AppCompatActivity() {
         }
         binding.registerButton.setOnClickListener {
             // 모든 필드가 입력되었는지
-            //TODO: api 명세 필요
             val onSuccessful: () -> Unit = {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.text_success))
@@ -94,7 +93,7 @@ class RegisterActivity : AppCompatActivity() {
                 if (it == 1) {
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle(getString(R.string.text_failure))
-                        .setMessage(getString(R.string.text_dup_email))
+                        .setMessage(getString(R.string.text_try_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                             dialog.dismiss()
                         }
@@ -109,9 +108,11 @@ class RegisterActivity : AppCompatActivity() {
                     builder.show()
                 }
             }
-            if (TextUtils.isEmpty(binding.registerName.toString()) ||
-                TextUtils.isEmpty(binding.registerStudentNumber.toString()) ||
-                TextUtils.isEmpty(binding.registerEmailField.toString()) ||
+            if (TextUtils.isEmpty(binding.registerName.text.toString()) ||
+                TextUtils.isEmpty(binding.registerStudentNumber.text.toString()) ||
+                TextUtils.isEmpty(binding.registerEmailField.text.toString()) ||
+                TextUtils.isEmpty(binding.registerPassword.text.toString()) ||
+                TextUtils.isEmpty(binding.registerPasswordCheck.text.toString()) ||
                 !(binding.registerMaleButton.isChecked ||
                         binding.registerFemaleButton.isChecked)) {
                 val builder = AlertDialog.Builder(this)
@@ -122,22 +123,30 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 builder.show()
             }
+            else if (binding.registerPassword.text.toString() != binding.registerPasswordCheck.text.toString()) {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(getString(R.string.text_check_password))
+                    .setMessage(getString(R.string.text_not_equal_password))
+                    .setPositiveButton(getString(R.string.text_confirm)) {
+                            dialog, _ -> dialog.dismiss()
+                    }
+                builder.show()
+            }
             else {
                 val sex: String = if (binding.registerMaleButton.isChecked)
                     "man"
                 else "woman"
 
-                val userInfo = UserInfo(
+                val userData = SignUpRequestBody(
                     binding.registerId.text.toString(),
+                    binding.registerPassword.text.toString(),
                     binding.registerName.text.toString(),
                     binding.registerStudentNumber.text.toString(),
                     binding.registerEmailField.text.toString(),
                     binding.registerDepartmentSpinner.selectedItem.toString(),
                     sex
                 )
-                val userData = SignUpRequestBody(
-                    userInfo
-                )
+
                 val retrofitWork = RetrofitWork()
                 retrofitWork.signUpUserWork(userData, onSuccessful, onFailure)
 

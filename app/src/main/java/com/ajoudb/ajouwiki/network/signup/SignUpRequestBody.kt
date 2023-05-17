@@ -1,7 +1,11 @@
 package com.ajoudb.ajouwiki.network.signup
 
-import com.ajoudb.ajouwiki.UserInfo
-
 data class SignUpRequestBody(
-    val user_info: UserInfo?
+    val username: String?,
+    val password: String?,
+    val name: String?,
+    val student_id: String?,
+    val email: String?,
+    val department: String?,
+    val sex: String?
 )

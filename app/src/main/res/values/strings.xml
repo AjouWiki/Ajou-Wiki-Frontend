@@ -32,5 +32,10 @@
     <string name="text_login_failure">로그인 실패</string>
     <string name="text_network_check">네트워크를 확인해주세요</string>
     <string name="text_id">아이디</string>
+    <string name="text_password">비밀번호</string>
+    <string name="text_password_check">비밀번호 확인</string>
+    <string name="text_check_password">비밀번호 확인</string>
+    <string name="text_not_equal_password">비밀번호가 일치하지 않습니다</string>
+    <string name="text_try_again">다시 시도해주세요</string>
 
 </resources>

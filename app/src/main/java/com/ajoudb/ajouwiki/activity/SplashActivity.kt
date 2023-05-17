@@ -1,5 +1,6 @@
 package com.ajoudb.ajouwiki.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.ajoudb.ajouwiki.databinding.ActivitySplashBinding
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private var mBinding: ActivitySplashBinding?= null
     private val binding get() = mBinding!!

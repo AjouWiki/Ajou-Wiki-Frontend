@@ -2,7 +2,6 @@
     <string name="app_name">AjouWiki</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_my_page">MyPageActivity</string>
     <string name="id_hint">아이디를 입력하세요</string>
     <string name="password_hint">비밀번호를 입력하세요</string>
@@ -20,4 +19,18 @@
     <string name="description_splash_logo">Ajou University logo</string>
     <string name="my_info">내 정보</string>
     <string name="text_confirm">확인</string>
+    <string name="text_require_idpw">아이디와 비밀번호를 입력해주세요</string>
+    <string name="text_should_ajou">올바른 이메일이 아닙니다.\n아주대학교 이메일인지 확인해주세요</string>
+    <string name="text_all_field_required">모든 필드를 작성한 후 다시 시도해주세요</string>
+    <string name="text_success">성공</string>
+    <string name="text_available_email">사용가능한 이메일입니다</string>
+    <string name="text_failure">실패</string>
+    <string name="text_dup_email">중복된 이메일이 존재합니다</string>
+    <string name="text_network_check_and_again">네트워크를 확인하고 다시 시도해주세요</string>
+    <string name="text_need_activate">이메일을 확인하여 회원가입을 완료해주세요!</string>
+    <string name="text_check_id_password">아이디 또는 비밀번호를 확인해주세요</string>
+    <string name="text_login_failure">로그인 실패</string>
+    <string name="text_network_check">네트워크를 확인해주세요</string>
+    <string name="text_id">아이디</string>
+
 </resources>

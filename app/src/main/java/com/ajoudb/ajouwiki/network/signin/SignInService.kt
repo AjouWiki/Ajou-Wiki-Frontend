@@ -8,6 +8,5 @@ import retrofit2.http.POST
 interface SignInService {
     @Headers("Content-Type: application/json")
     @POST("users/log-in")
-    fun signInUserByEnqueue(@Body userInfo: SignInRequestBody): Call<SignInResponseBody> // Call 은 흐름처리 기능을 제공해줌
-
+    fun signInUserByEnqueue(@Body userInfo: SignInRequestBody): Call<SignInResponseBody>
 }

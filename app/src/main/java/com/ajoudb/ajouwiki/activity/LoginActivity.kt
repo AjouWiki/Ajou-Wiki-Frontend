@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.ajoudb.ajouwiki.R
+import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.databinding.ActivityLoginBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
@@ -19,25 +21,55 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginButton.setOnClickListener {
+            // 아이디 비번 입력 확인
             if (TextUtils.isEmpty(binding.idInput.text.toString()) ||
                     TextUtils.isEmpty(binding.passwordInput.text.toString())) {
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("로그인")
-                    .setMessage("아이디와 비밀번호를 입력해주세요")
-                    .setPositiveButton("확인") {
+                builder.setTitle(getString(R.string.text_login))
+                    .setMessage(getString(R.string.text_require_idpw))
+                    .setPositiveButton(getString(R.string.text_confirm)) {
                         dialog, Int -> dialog.dismiss()
                     }
                 builder.show()
+
             }
             else {
-                // TODO: 로그인 작업
+                val onSuccessful: (UserInfo) -> Unit = {
+                    val intent = Intent(this, MyPageActivity::class.java)
+                    intent.putExtra("user_info", it)
+                    startActivity(intent)
+                    finish()
+                }
+                val onFailure : (Int) -> Unit = {
+                    if (it == 1) {
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle(getString(R.string.text_login_failure))
+                            .setMessage(getString(R.string.text_check_id_password))
+                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, Int ->
+                                dialog.dismiss()
+                                binding.loginButton.isEnabled = true
+                            }
+                        builder.show()
+                    }
+                    else if (it == 2) {
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle(getString(R.string.text_login_failure))
+                            .setMessage(getString(R.string.text_network_check))
+                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, Int ->
+                                dialog.dismiss()
+                                binding.loginButton.isEnabled = true
+                            }
+                        builder.show()
+                    }
+
+                }
                 val userData = SignInRequestBody(
                     binding.idInput.text.toString(),
                     binding.passwordInput.text.toString()
                 )
                 val retrofitWork = RetrofitWork()
-                retrofitWork.signInWork(userData)
-                binding.loginButton.isEnabled = false;
+                retrofitWork.signInWork(userData, onSuccessful, onFailure)
+                binding.loginButton.isEnabled = false
 
             }
         }

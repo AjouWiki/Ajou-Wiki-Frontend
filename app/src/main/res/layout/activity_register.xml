@@ -19,15 +19,28 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
-        android:id="@+id/register_name"
+        android:id="@+id/register_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:hint="@string/text_id"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_title"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/register_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="@string/text_name"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_title"/>
+        app:layout_constraintTop_toBottomOf="@id/register_id"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/register_student_number"
@@ -38,7 +51,8 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_name"/>
+        app:layout_constraintTop_toBottomOf="@id/register_name"
+        android:importantForAutofill="no" />
 
 
     <LinearLayout
@@ -57,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:hint="@string/text_email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/register_email_check"
@@ -126,7 +141,7 @@
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="30dp"
         android:ems="14"
         android:text="@string/text_register"
         android:textColor="@color/white"

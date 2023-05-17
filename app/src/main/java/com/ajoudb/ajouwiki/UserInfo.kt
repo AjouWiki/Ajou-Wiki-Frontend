@@ -1,9 +1,12 @@
 package com.ajoudb.ajouwiki
 
-class UserInfo {
-    var name: String? = null
-    var department: String? = null
-    var sex: String? = null
-    var email: String? = null
-    var studentNumber: String? = null
-}
+import java.io.Serializable
+
+data class UserInfo (
+    var id: String?,
+    var name: String?,
+    var studentNumber: String?,
+    var email: String?,
+    var department: String?,
+    var sex: String?
+):Serializable

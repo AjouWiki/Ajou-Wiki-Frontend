@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
                 builder.setTitle(getString(R.string.text_login))
                     .setMessage(getString(R.string.text_require_idpw))
                     .setPositiveButton(getString(R.string.text_confirm)) {
-                        dialog, Int -> dialog.dismiss()
+                        dialog, _ -> dialog.dismiss()
                     }
                 builder.show()
 
@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle(getString(R.string.text_login_failure))
                             .setMessage(getString(R.string.text_check_id_password))
-                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, Int ->
+                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                                 dialog.dismiss()
                                 binding.loginButton.isEnabled = true
                             }
@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle(getString(R.string.text_login_failure))
                             .setMessage(getString(R.string.text_network_check))
-                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, Int ->
+                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                                 dialog.dismiss()
                                 binding.loginButton.isEnabled = true
                             }

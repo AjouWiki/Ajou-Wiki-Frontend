@@ -1,8 +1,6 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.ajoudb.ajouwiki.LoginActivity
 //import com.ajoudb.ajouwiki.network.emaildupcheck.EmailDupCheckRequestBody
 //import com.ajoudb.ajouwiki.network.emaildupcheck.EmailDupCheckResponseBody
@@ -55,19 +53,22 @@ class RetrofitWork (){
                     if (response.isSuccessful) {
                         val result = response.body()
                         val status_code = result?.status
+                        val user_info = result?.user_info
                         if (status_code == "200") {
                             Log.d("로그인 성공", "123123")
-                            Toast.makeText(LoginActivity().applicationContext, "로그인 성공", Toast.LENGTH_LONG).show()
+//                            Toast.makeText(LoginActivity().applicationContext, "로그인 성공", Toast.LENGTH_LONG).show()
                         }
                         else if (status_code == "403") {
                             Log.d("로그인 실패", "123123")
-                            Toast.makeText(LoginActivity().applicationContext, "로그인 실패", Toast.LENGTH_LONG).show()
+
+//                            Toast.makeText(LoginActivity().applicationContext, "로그인 실패", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
                 override fun onFailure(call: Call<SignInResponseBody>, t: Throwable) {
-                    Log.d("로그인 실패", "123123")
-                    Toast.makeText(LoginActivity().applicationContext, "로그인 실패", Toast.LENGTH_LONG).show()
+                    Log.d("로그인 실패2", "123123")
+
+//                    Toast.makeText(LoginActivity().applicationContext, "로그인 실패", Toast.LENGTH_LONG).show()
 
                 }
             })

@@ -29,35 +29,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/register_title"/>
 
-    <LinearLayout
+    <EditText
         android:id="@+id/register_student_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:hint="@string/text_student_number"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_name">
+        app:layout_constraintTop_toBottomOf="@id/register_name"/>
 
-        <EditText
-            android:id="@+id/register_student_number_field"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:hint="@string/text_student_number"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/register_name"/>
-
-        <Button
-            android:id="@+id/register_student_number_check"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_duplicate_check"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/register_email"

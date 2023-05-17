@@ -3,6 +3,7 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_my_page">MyPageActivity</string>
     <string name="id_hint">아이디를 입력하세요</string>
     <string name="password_hint">비밀번호를 입력하세요</string>
     <string name="text_register">회원가입</string>
@@ -17,4 +18,6 @@
     <string name="text_name">이름</string>
     <string name="text_splash">아주대학교\nWiki</string>
     <string name="description_splash_logo">Ajou University logo</string>
+    <string name="my_info">내 정보</string>
+    <string name="text_confirm">확인</string>
 </resources>

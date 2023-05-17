@@ -1,7 +1,6 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
 import com.ajoudb.ajouwiki.network.signin.SignInService
-//import com.ajoudb.ajouwiki.network.signup.SignUpService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

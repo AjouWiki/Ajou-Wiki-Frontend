@@ -1,14 +1,8 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
 import android.util.Log
-//import com.ajoudb.ajouwiki.network.emaildupcheck.EmailDupCheckRequestBody
-//import com.ajoudb.ajouwiki.network.emaildupcheck.EmailDupCheckResponseBody
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
 import com.ajoudb.ajouwiki.network.signin.SignInResponseBody
-//import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
-//import com.ajoudb.ajouwiki.network.signup.SignUpResponseBody
-//import com.ajoudb.ajouwiki.network.studentnumberdupcheck.StudentNumberDupCheckRequestBody
-//import com.ajoudb.ajouwiki.network.studentnumberdupcheck.StudentNumberDupCheckResponseBody
 import retrofit2.Call
 import retrofit2.Response
 

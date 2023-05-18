@@ -5,7 +5,6 @@ import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.ajoudb.ajouwiki.R
-import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.databinding.ActivityRegisterBinding
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
@@ -77,7 +76,6 @@ class RegisterActivity : AppCompatActivity() {
 
         }
         binding.registerButton.setOnClickListener {
-            // 모든 필드가 입력되었는지
             val onSuccessful: () -> Unit = {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.text_success))
@@ -96,6 +94,7 @@ class RegisterActivity : AppCompatActivity() {
                         .setMessage(getString(R.string.text_try_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                             dialog.dismiss()
+                            binding.registerButton.isEnabled = true
                         }
                     builder.show()
                 } else if (it == 2) {
@@ -104,6 +103,7 @@ class RegisterActivity : AppCompatActivity() {
                         .setMessage(getString(R.string.text_network_check_and_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                             dialog.dismiss()
+                            binding.registerButton.isEnabled = true
                         }
                     builder.show()
                 }
@@ -146,7 +146,7 @@ class RegisterActivity : AppCompatActivity() {
                     binding.registerDepartmentSpinner.selectedItem.toString(),
                     sex
                 )
-
+                binding.registerButton.isEnabled = false
                 val retrofitWork = RetrofitWork()
                 retrofitWork.signUpUserWork(userData, onSuccessful, onFailure)
 

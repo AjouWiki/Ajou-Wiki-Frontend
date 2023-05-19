@@ -4,6 +4,8 @@ import android.util.Log
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailResponseBody
+import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
+import com.ajoudb.ajouwiki.network.checkid.CheckIdResponseBody
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
 import com.ajoudb.ajouwiki.network.signin.SignInResponseBody
 import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
@@ -31,6 +33,29 @@ class RetrofitWork {
                     }
                 }
                 override fun onFailure(call: Call<SignInResponseBody>, t: Throwable) {onFailure(2)}
+            })
+    }
+    fun signUpUserWork(userInfo: SignUpRequestBody,
+                       onSuccessful: () -> Unit, onFailure: (Int) -> Unit) {
+        val service = RetrofitAPI.signUpService
+
+        service.signUpUserByEnqueue(userInfo)
+            .enqueue(object : retrofit2.Callback<SignUpResponseBody> {
+                override fun onResponse(
+                    call: Call<SignUpResponseBody>,
+                    response: Response<SignUpResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        val statusCode = result?.status
+                        Log.d("statuscode", "$statusCode")
+                        if (statusCode == "200") onSuccessful()
+                        else onFailure(1)
+                    }
+                }
+                override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
+                    onFailure(2)
+                }
             })
     }
 
@@ -61,27 +86,30 @@ class RetrofitWork {
                 }
             })
     }
+    fun checkIdWork(username: CheckIdRequestBody,
+                    onSuccessful: () -> Unit, onFailure: (Int) -> Unit) {
+        val service = RetrofitAPI.checkIdService
 
-    fun signUpUserWork(userInfo: SignUpRequestBody,
-                       onSuccessful: () -> Unit, onFailure: (Int) -> Unit) {
-        val service = RetrofitAPI.signUpService
-
-        service.signUpUserByEnqueue(userInfo)
-            .enqueue(object : retrofit2.Callback<SignUpResponseBody> {
+        service.checkIdByEnqueue(username)
+            .enqueue(object : retrofit2.Callback<CheckIdResponseBody> {
                 override fun onResponse(
-                    call: Call<SignUpResponseBody>,
-                    response: Response<SignUpResponseBody>
+                    call: Call<CheckIdResponseBody>,
+                    response: Response<CheckIdResponseBody>
                 ) {
                     if (response.isSuccessful) {
                         val result = response.body()
                         val statusCode = result?.status
-                        Log.d("statuscode", "$statusCode")
-                        if (statusCode == "200") onSuccessful()
-                        else onFailure(1)
+                        if (statusCode == "200") {
+                            onSuccessful()
+                        }
+                        else if (statusCode == "403") {
+                            onFailure(1)
+                        }
                     }
                 }
-                override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
+                override fun onFailure(call: Call<CheckIdResponseBody>, t: Throwable) {
                     onFailure(2)
+
                 }
             })
     }

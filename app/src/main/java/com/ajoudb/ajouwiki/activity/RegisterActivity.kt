@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ajoudb.ajouwiki.R
 import com.ajoudb.ajouwiki.databinding.ActivityRegisterBinding
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
+import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
+import org.mindrot.jbcrypt.BCrypt
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -18,6 +20,8 @@ class RegisterActivity : AppCompatActivity() {
     private val EMAIL_ADDRESS_PATTERN:Pattern = Pattern.compile(
         "^[a-zA-Z0-9._%+-]+@ajou.ac.kr$"
     )
+    private var isIdChecked = false
+    private var isEmailChecked = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -35,7 +39,8 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     .setCancelable(false)
                 builder.show()
-                binding.registerButton.isEnabled = true
+                if (isIdChecked)
+                    binding.registerButton.isEnabled = true
             }
             val onFailure : (Int) -> Unit = {
                 if (it == 1) {
@@ -73,6 +78,48 @@ class RegisterActivity : AppCompatActivity() {
                 val retrofitWork = RetrofitWork()
                 retrofitWork.checkEmailWork(userEmail, onSuccessful, onFailure)
             }
+
+        }
+        binding.registerIdCheck.setOnClickListener {
+            // 이메일 중복 확인
+            val onSuccessful: () -> Unit = {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(getString(R.string.text_success))
+                    .setMessage(getString(R.string.text_available_id))
+                    .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
+                        dialog.dismiss()
+                        binding.registerIdField.isEnabled = false
+                    }
+                    .setCancelable(false)
+                builder.show()
+                isIdChecked = true
+                if (isEmailChecked)
+                    binding.registerButton.isEnabled = true
+            }
+            val onFailure : (Int) -> Unit = {
+                if (it == 1) {
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle(getString(R.string.text_failure))
+                        .setMessage(getString(R.string.text_dup_id))
+                        .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    builder.show()
+                } else if (it == 2) {
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle(getString(R.string.text_failure))
+                        .setMessage(getString(R.string.text_network_check_and_again))
+                        .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    builder.show()
+                }
+            }
+            val userId = CheckIdRequestBody(
+                binding.registerIdField.text.toString()
+            )
+            val retrofitWork = RetrofitWork()
+            retrofitWork.checkIdWork(userId, onSuccessful, onFailure)
 
         }
         binding.registerButton.setOnClickListener {
@@ -137,9 +184,11 @@ class RegisterActivity : AppCompatActivity() {
                     "man"
                 else "woman"
 
+                val passwordHashed = BCrypt.hashpw(binding.registerPassword.text.toString(), BCrypt.gensalt())
+
                 val userData = SignUpRequestBody(
-                    binding.registerId.text.toString(),
-                    binding.registerPassword.text.toString(),
+                    binding.registerIdField.text.toString(),
+                    passwordHashed,
                     binding.registerName.text.toString(),
                     binding.registerStudentNumber.text.toString(),
                     binding.registerEmailField.text.toString(),

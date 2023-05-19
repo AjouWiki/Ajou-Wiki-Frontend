@@ -10,6 +10,7 @@ import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.databinding.ActivityLoginBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
+import org.mindrot.jbcrypt.BCrypt
 
 class LoginActivity : AppCompatActivity() {
     private var mBinding: ActivityLoginBinding ?= null
@@ -63,9 +64,10 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                 }
+                val passwordHashed = BCrypt.hashpw(binding.passwordInput.text.toString(), BCrypt.gensalt())
                 val userData = SignInRequestBody(
                     binding.idInput.text.toString(),
-                    binding.passwordInput.text.toString()
+                    passwordHashed
                 )
                 val retrofitWork = RetrofitWork()
                 retrofitWork.signInWork(userData, onSuccessful, onFailure)

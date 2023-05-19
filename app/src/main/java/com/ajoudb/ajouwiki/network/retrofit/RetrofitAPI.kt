@@ -1,6 +1,7 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailService
+import com.ajoudb.ajouwiki.network.checkid.CheckIdService
 import com.ajoudb.ajouwiki.network.signin.SignInService
 import com.ajoudb.ajouwiki.network.signup.SignUpService
 import okhttp3.OkHttpClient
@@ -30,10 +31,14 @@ object RetrofitAPI {
     val signInService: SignInService by lazy {
         retrofit.create(SignInService::class.java)
     }
-    val checkEmailService: CheckEmailService by lazy {
-        retrofit.create(CheckEmailService::class.java)
-    }
     val signUpService: SignUpService by lazy {
         retrofit.create(SignUpService::class.java)
     }
+    val checkEmailService: CheckEmailService by lazy {
+        retrofit.create(CheckEmailService::class.java)
+    }
+    val checkIdService: CheckIdService by lazy {
+        retrofit.create(CheckIdService::class.java)
+    }
+
 }

@@ -10,7 +10,6 @@ import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
-import org.mindrot.jbcrypt.BCrypt
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -184,11 +183,9 @@ class RegisterActivity : AppCompatActivity() {
                     "man"
                 else "woman"
 
-                val passwordHashed = BCrypt.hashpw(binding.registerPassword.text.toString(), BCrypt.gensalt())
-
                 val userData = SignUpRequestBody(
                     binding.registerIdField.text.toString(),
-                    passwordHashed,
+                    binding.registerPassword.text.toString(),
                     binding.registerName.text.toString(),
                     binding.registerStudentNumber.text.toString(),
                     binding.registerEmailField.text.toString(),

@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.registerEmailCheck.setOnClickListener {
             // 이메일 중복 확인
-            val onSuccessful: () -> Unit = {
+            val onSuccess: () -> Unit = {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.text_success))
                     .setMessage(getString(R.string.text_available_email))
@@ -76,13 +76,13 @@ class RegisterActivity : AppCompatActivity() {
             }
             else {
                 val retrofitWork = RetrofitWork()
-                retrofitWork.checkEmailWork(userEmail, onSuccessful, onFailure)
+                retrofitWork.checkEmailWork(userEmail, onSuccess, onFailure)
             }
 
         }
         binding.registerIdCheck.setOnClickListener {
             // 이메일 중복 확인
-            val onSuccessful: () -> Unit = {
+            val onSuccess: () -> Unit = {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.text_success))
                     .setMessage(getString(R.string.text_available_id))
@@ -119,11 +119,11 @@ class RegisterActivity : AppCompatActivity() {
                 binding.registerIdField.text.toString()
             )
             val retrofitWork = RetrofitWork()
-            retrofitWork.checkIdWork(userId, onSuccessful, onFailure)
+            retrofitWork.checkIdWork(userId, onSuccess, onFailure)
 
         }
         binding.registerButton.setOnClickListener {
-            val onSuccessful: () -> Unit = {
+            val onSuccess: () -> Unit = {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.text_success))
                     .setMessage(getString(R.string.text_need_activate))
@@ -197,7 +197,7 @@ class RegisterActivity : AppCompatActivity() {
                 )
                 binding.registerButton.isEnabled = false
                 val retrofitWork = RetrofitWork()
-                retrofitWork.signUpUserWork(userData, onSuccessful, onFailure)
+                retrofitWork.signUpUserWork(userData, onSuccess, onFailure)
 
             }
         }

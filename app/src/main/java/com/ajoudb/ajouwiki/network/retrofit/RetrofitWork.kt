@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class RetrofitWork {
     fun signInWork(userInfo: SignInRequestBody,
-                   onSuccessful: (UserInfo) -> Unit, onFailure: (Int) -> Unit) {
+                   onSuccess: (UserInfo) -> Unit, onFailure: (Int) -> Unit) {
         val service = RetrofitAPI.signInService
 
         service.signInUserByEnqueue(userInfo)
@@ -28,7 +28,7 @@ class RetrofitWork {
                         val result = response.body()
                         val statusCode = result?.status
                         val userInfoForReturn = result?.user_info
-                        if (statusCode == "200") onSuccessful(userInfoForReturn!!)
+                        if (statusCode == "200") onSuccess(userInfoForReturn!!)
                         else if (statusCode == "403") onFailure(1)
                     }
                 }
@@ -36,7 +36,7 @@ class RetrofitWork {
             })
     }
     fun signUpUserWork(userInfo: SignUpRequestBody,
-                       onSuccessful: () -> Unit, onFailure: (Int) -> Unit) {
+                       onSuccess: () -> Unit, onFailure: (Int) -> Unit) {
         val service = RetrofitAPI.signUpService
 
         service.signUpUserByEnqueue(userInfo)
@@ -49,7 +49,7 @@ class RetrofitWork {
                         val result = response.body()
                         val statusCode = result?.status
                         Log.d("statuscode", "$statusCode")
-                        if (statusCode == "200") onSuccessful()
+                        if (statusCode == "200") onSuccess()
                         else onFailure(1)
                     }
                 }
@@ -60,7 +60,7 @@ class RetrofitWork {
     }
 
     fun checkEmailWork(userEmail: CheckEmailRequestBody,
-                       onSuccessful: () -> Unit, onFailure: (Int) -> Unit) {
+                       onSuccess: () -> Unit, onFailure: (Int) -> Unit) {
         val service = RetrofitAPI.checkEmailService
 
         service.checkEmailByEnqueue(userEmail)
@@ -73,7 +73,7 @@ class RetrofitWork {
                         val result = response.body()
                         val statusCode = result?.status
                         if (statusCode == "200") {
-                            onSuccessful()
+                            onSuccess()
                         }
                         else if (statusCode == "403") {
                             onFailure(1)
@@ -87,7 +87,7 @@ class RetrofitWork {
             })
     }
     fun checkIdWork(username: CheckIdRequestBody,
-                    onSuccessful: () -> Unit, onFailure: (Int) -> Unit) {
+                    onSuccess: () -> Unit, onFailure: (Int) -> Unit) {
         val service = RetrofitAPI.checkIdService
 
         service.checkIdByEnqueue(username)
@@ -100,7 +100,7 @@ class RetrofitWork {
                         val result = response.body()
                         val statusCode = result?.status
                         if (statusCode == "200") {
-                            onSuccessful()
+                            onSuccess()
                         }
                         else if (statusCode == "403") {
                             onFailure(1)

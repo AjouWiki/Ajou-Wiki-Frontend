@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
             }
             else {
-                val onSuccessful: (UserInfo) -> Unit = {
+                val onSuccess: (UserInfo) -> Unit = {
                     val intent = Intent(this, MyPageActivity::class.java)
                     intent.putExtra("user_info", it)
                     startActivity(intent)
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
                     passwordHashed
                 )
                 val retrofitWork = RetrofitWork()
-                retrofitWork.signInWork(userData, onSuccessful, onFailure)
+                retrofitWork.signInWork(userData, onSuccess, onFailure)
                 binding.loginButton.isEnabled = false
 
             }

@@ -41,27 +41,34 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 }
                 val onFailure : (Int) -> Unit = {
-                    if (it == 1) {
-                        val builder = AlertDialog.Builder(this)
-                        builder.setTitle(getString(R.string.text_login_failure))
-                            .setMessage(getString(R.string.text_check_id_password))
-                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
-                                dialog.dismiss()
-                                binding.loginButton.isEnabled = true
-                            }
-                        builder.show()
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle(getString(R.string.text_login_failure))
+                    when (it) {
+                        1 -> {
+                            builder.setMessage(getString(R.string.text_check_id_password))
+                                .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
+                                    dialog.dismiss()
+                                    binding.loginButton.isEnabled = true
+                                }
+                            builder.show()
+                        }
+                        2 -> {
+                            builder.setMessage(getString(R.string.text_network_check))
+                                .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
+                                    dialog.dismiss()
+                                    binding.loginButton.isEnabled = true
+                                }
+                            builder.show()
+                        }
+                        3 -> {
+                            builder.setMessage(getString(R.string.text_still_inactivate))
+                                .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
+                                    dialog.dismiss()
+                                    binding.loginButton.isEnabled = true
+                                }
+                            builder.show()
+                        }
                     }
-                    else if (it == 2) {
-                        val builder = AlertDialog.Builder(this)
-                        builder.setTitle(getString(R.string.text_login_failure))
-                            .setMessage(getString(R.string.text_network_check))
-                            .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
-                                dialog.dismiss()
-                                binding.loginButton.isEnabled = true
-                            }
-                        builder.show()
-                    }
-
                 }
                 val userData = SignInRequestBody(
                     binding.idInput.text.toString(),

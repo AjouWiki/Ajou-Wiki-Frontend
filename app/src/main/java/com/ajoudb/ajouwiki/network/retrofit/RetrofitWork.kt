@@ -30,8 +30,7 @@ class RetrofitWork {
                         val userInfoForReturn = result?.user_info
                         if (statusCode == "200") onSuccess(userInfoForReturn!!)
                         else if (statusCode == "403") onFailure(1)
-                        // TODO: 이메일 인증 안됐을 때 statusCode가 백엔드에서 구현안되어있음
-                        else if (statusCode == "123") onFailure(3)
+                        else if (statusCode == "401") onFailure(3)
                     }
                 }
                 override fun onFailure(call: Call<SignInResponseBody>, t: Throwable) {onFailure(2)}
@@ -50,7 +49,6 @@ class RetrofitWork {
                     if (response.isSuccessful) {
                         val result = response.body()
                         val statusCode = result?.status
-                        Log.d("statuscode", "$statusCode")
                         if (statusCode == "200") onSuccess()
                         else onFailure(1)
                     }

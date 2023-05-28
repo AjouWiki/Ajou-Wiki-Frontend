@@ -35,10 +35,13 @@ class LoginActivity : AppCompatActivity() {
             }
             else {
                 val onSuccess: (UserInfo) -> Unit = {
-                    val intent = Intent(this, MyPageActivity::class.java)
+                    /*val intent = Intent(this, MyPageActivity::class.java)
                     intent.putExtra("user_info", it)
                     startActivity(intent)
-                    finish()
+                    finish()*/
+
+                    val intent = Intent(this, AddWikiActivity::class.java)
+                    startActivity(intent)
                 }
                 val onFailure : (Int) -> Unit = {
                     val builder = AlertDialog.Builder(this)

@@ -22,6 +22,7 @@ class AddWikiActivity : AppCompatActivity() {
         markdownEditText.setStylesBar(stylesBar)
 
         binding.complete.setOnClickListener {
+            //마크다운 잘 넘어감 (bold, italic은 안됨;;)
             Log.d("check", binding.editText.getMD())
         }
 

@@ -2,7 +2,7 @@ package com.ajoudb.ajouwiki.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ajoudb.ajouwiki.R
+import android.util.Log
 import com.ajoudb.ajouwiki.databinding.ActivityAddWikiBinding
 
 class AddWikiActivity : AppCompatActivity() {
@@ -20,5 +20,10 @@ class AddWikiActivity : AppCompatActivity() {
         val stylesBar = binding.stylesBar
 
         markdownEditText.setStylesBar(stylesBar)
+
+        binding.complete.setOnClickListener {
+            Log.d("check", binding.editText.getMD())
+        }
+
     }
 }

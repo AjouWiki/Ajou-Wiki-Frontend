@@ -33,7 +33,7 @@
         app:layout_constraintStart_toEndOf="@id/search_input"
         app:layout_constraintTop_toBottomOf="@id/title_text"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/search_icon"></ImageView>
 
     <ImageView

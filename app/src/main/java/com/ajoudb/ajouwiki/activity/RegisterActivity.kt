@@ -48,7 +48,9 @@ class RegisterActivity : AppCompatActivity() {
                         .setMessage(getString(R.string.text_dup_email))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                             dialog.dismiss()
+                            binding.registerEmailCheck.isEnabled = true
                         }
+                        .setCancelable(false)
                     builder.show()
                 } else if (it == 2) {
                     val builder = AlertDialog.Builder(this)
@@ -56,7 +58,9 @@ class RegisterActivity : AppCompatActivity() {
                         .setMessage(getString(R.string.text_network_check_and_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                             dialog.dismiss()
+                            binding.registerEmailCheck.isEnabled = true
                         }
+                        .setCancelable(false)
                     builder.show()
                 }
             }
@@ -74,6 +78,7 @@ class RegisterActivity : AppCompatActivity() {
                 builder.show()
             }
             else {
+                binding.registerEmailCheck.isEnabled = false
                 val retrofitWork = RetrofitWork()
                 retrofitWork.checkEmailWork(userEmail, onSuccess, onFailure)
             }
@@ -102,7 +107,9 @@ class RegisterActivity : AppCompatActivity() {
                         .setMessage(getString(R.string.text_dup_id))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                             dialog.dismiss()
+                            binding.registerIdCheck.isEnabled = true
                         }
+                        .setCancelable(false)
                     builder.show()
                 } else if (it == 2) {
                     val builder = AlertDialog.Builder(this)
@@ -110,13 +117,16 @@ class RegisterActivity : AppCompatActivity() {
                         .setMessage(getString(R.string.text_network_check_and_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
                             dialog.dismiss()
+                            binding.registerIdCheck.isEnabled = true
                         }
+                        .setCancelable(false)
                     builder.show()
                 }
             }
             val userId = CheckIdRequestBody(
                 binding.registerIdField.text.toString()
             )
+            binding.registerIdCheck.isEnabled = false
             val retrofitWork = RetrofitWork()
             retrofitWork.checkIdWork(userId, onSuccess, onFailure)
 

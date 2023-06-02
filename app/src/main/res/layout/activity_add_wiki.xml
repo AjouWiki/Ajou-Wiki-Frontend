@@ -9,6 +9,10 @@
     <com.yahiaangelo.markdownedittext.MarkdownEditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="48dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@android:color/transparent"
         android:id="@+id/editText"
         android:gravity="top"/>
 
@@ -16,10 +20,30 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:id="@+id/stylesBar"
-        app:buttonColor="@color/gray"
+        app:buttonColor="@color/white"
         android:clipToPadding="false"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/text_complete"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"></EditText>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

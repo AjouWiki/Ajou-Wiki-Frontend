@@ -49,8 +49,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:layout_marginTop="110dp">
+        android:layout_marginTop="110dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/wiki_list">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -17,6 +17,15 @@
         style="@style/Title"
         ></TextView>
 
+    <ImageView
+        android:id="@+id/add_wiki_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="@id/search_button"
+        app:layout_constraintTop_toTopOf="@id/title_text"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/add_icon"></ImageView>
+
     <EditText
         android:id="@+id/search_input"
         android:layout_width="match_parent"

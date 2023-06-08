@@ -51,7 +51,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:importantForAutofill="no" />
-                <Button
+                <android.widget.Button
                     android:id="@+id/register_id_check"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                     android:inputType="textEmailAddress"
                     android:importantForAutofill="no" />
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/register_email_check"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/register_department_spinner"/>
 
-            <RadioGroup
+            <android.widget.RadioGroup
                 android:id="@+id/register_sex_radio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,18 +179,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/register_sex">
 
-                <RadioButton
+                <android.widget.RadioButton
                     android:id="@+id/register_male_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_male" />
 
-                <RadioButton
+                <android.widget.RadioButton
                     android:id="@+id/register_female_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_female" />
-            </RadioGroup>
+            </android.widget.RadioGroup>
         </LinearLayout>
 
     </ScrollView>

@@ -4,19 +4,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="70dp"
     android:paddingVertical="10dp">
 
 
-    <ImageView
-        android:id="@+id/iv_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/btn_blue"/>
 
     <TextView
         android:id="@+id/iv_name"
@@ -28,7 +19,7 @@
         android:textColor="@color/black"
         android:textSize="12dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/iv_image"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -39,7 +30,7 @@
         android:textSize="10dp"
         android:text="#tag #태그"
         android:layout_marginTop="25dp"
-        app:layout_constraintStart_toEndOf="@id/iv_image"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

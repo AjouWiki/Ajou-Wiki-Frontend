@@ -18,12 +18,6 @@ class WikiListAdapter internal constructor(var wikiList: List<WikiListResponseBo
 
         inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 fun bind(_list: WikiListResponseBody) {
-//                        val imageView: ImageView = itemView.findViewById<ImageView>(R.id.iv_image)
-//                        if(_list.thumbnailPath!=null) {
-//                                val newUrl=_list.thumbnailPath
-//                                Glide.with(itemView).load(newUrl).into(imageView)
-//                        }
-                        itemView.findViewById<ImageView>(R.id.iv_image).clipToOutline=true
 
                         itemView.findViewById<TextView>(R.id.iv_name).text = _list.wiki[0].name
 

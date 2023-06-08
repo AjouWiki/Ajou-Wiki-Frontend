@@ -7,6 +7,7 @@
     tools:context=".activity.AddWikiActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginHorizontal="15dp"
         android:id="@+id/wiki_detail_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

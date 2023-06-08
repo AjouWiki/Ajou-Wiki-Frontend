@@ -8,8 +8,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.ajoudb.ajouwiki.AddWikiAlertDialog
 import com.ajoudb.ajouwiki.R
+import android.view.View
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.Wiki
+import com.ajoudb.ajouwiki.WikiDetail
 import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityHomeBinding
 import com.ajoudb.ajouwiki.network.addwiki.AddWikiRequestBody
@@ -84,7 +86,21 @@ class HomeActivity : AppCompatActivity() {
             data.clear()
             data.addAll(it)
 
-            binding.wikiList.adapter = WikiListAdapter(data)
+            binding.wikiList.adapter = WikiListAdapter(data).apply {
+                setItemClickListener(
+                    object : WikiListAdapter.ItemClickListener {
+                        override fun onClick(view: View, position: Int) {
+                            val id = wikiList[position].id
+
+                            val intent = Intent(this@HomeActivity, WikiDetail::class.java)
+
+                            intent.apply {
+                                this.putExtra("id", id) // 데이터 넣기
+                            }
+                            startActivity(intent)
+                        }
+                    })
+            }
         }
         val onFailure : () -> Unit = {
         }

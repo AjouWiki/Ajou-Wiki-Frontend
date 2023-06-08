@@ -92,7 +92,7 @@ class HomeActivity : AppCompatActivity() {
                         override fun onClick(view: View, position: Int) {
                             val id = wikiList[position].id
 
-                            val intent = Intent(this@HomeActivity, WikiDetail::class.java)
+                            val intent = Intent(this@HomeActivity, WikiDetailActivity::class.java)
 
                             intent.apply {
                                 this.putExtra("id", id) // 데이터 넣기

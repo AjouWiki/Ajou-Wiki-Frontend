@@ -46,11 +46,15 @@ class WikiDetailActivity : AppCompatActivity() {
                     object : WikiDetailAdapter.ItemClickListener {
                         override fun onClick(view: View, position: Int) {
                             val id = wikiDetail[position].id
+                            val title = wikiDetail[position].title
+                            val description = wikiDetail[position].description
 
                             val intent = Intent(this@WikiDetailActivity, EditWikiActivity::class.java)
 
                             intent.apply {
                                 this.putExtra("id", id) // 데이터 넣기
+                                this.putExtra("title", title)
+                                this.putExtra("description", description)
                             }
                             startActivity(intent)
                         }

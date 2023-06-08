@@ -196,6 +196,7 @@ class RetrofitWork {
                 }
             })
     }
+
     fun addWikiWork(wikiinfo: AddWikiRequestBody,
                     onSuccess: () -> Unit, onFailure: () -> Unit) {
         val service = RetrofitAPI.addWikiService
@@ -247,4 +248,31 @@ class RetrofitWork {
                 }
             })
     }
+
+    fun editWikiDetailWork(wikiDetail: AddWikiDetailRequestBody, id: Int,
+                          onSuccess: () -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.editWikiDetailService
+
+        service.editWikiDetailByEnqueue(wikiDetail, id)
+            .enqueue(object : retrofit2.Callback<AddWikiDetailResponseBody> {
+                override fun onResponse(
+                    call: Call<AddWikiDetailResponseBody>,
+                    response: Response<AddWikiDetailResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        val statusCode = response.code()
+                        if (statusCode == 200) {
+                            onSuccess()
+                        }
+                        else onFailure()
+                    }
+                }
+                override fun onFailure(call: Call<AddWikiDetailResponseBody>, t: Throwable) {
+                    onFailure()
+
+                }
+            })
+    }
+
 }

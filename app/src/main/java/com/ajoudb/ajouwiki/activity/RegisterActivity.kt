@@ -128,9 +128,22 @@ class RegisterActivity : AppCompatActivity() {
             val userId = CheckIdRequestBody(
                 binding.registerIdField.text.toString()
             )
-            binding.registerIdCheck.isEnabled = false
-            val retrofitWork = RetrofitWork()
-            retrofitWork.checkIdWork(userId, onSuccess, onFailure)
+            if (userId.username!!.isEmpty()){
+                val builder = MaterialAlertDialogBuilder(this)
+                builder.setTitle("알림")
+                    .setMessage("아이디를 입력해주세요")
+                    .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
+                        dialog.dismiss()
+                        binding.registerIdCheck.isEnabled = true
+                    }
+                    .setCancelable(false)
+                builder.show()
+            }
+            else {
+                binding.registerIdCheck.isEnabled = false
+                val retrofitWork = RetrofitWork()
+                retrofitWork.checkIdWork(userId, onSuccess, onFailure)
+            }
 
         }
         binding.registerButton.setOnClickListener {

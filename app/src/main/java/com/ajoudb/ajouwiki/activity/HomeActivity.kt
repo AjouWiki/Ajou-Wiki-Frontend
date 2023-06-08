@@ -17,6 +17,7 @@ import com.ajoudb.ajouwiki.databinding.ActivityHomeBinding
 import com.ajoudb.ajouwiki.network.addwiki.AddWikiRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.search.SearchResponseBody
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.Serializable
 
 class HomeActivity : AppCompatActivity() {
@@ -74,11 +75,21 @@ class HomeActivity : AppCompatActivity() {
                 binding.wikiList.adapter?.notifyDataSetChanged()
                 binding.searchButton.isEnabled = true
             }
+            val onSuccess_empty: (wikiList: List<Wiki>) -> Unit = {
+                data.clear()
+                data.addAll(it)
+                binding.wikiList.adapter?.notifyDataSetChanged()
+                binding.searchButton.isEnabled = true
+            }
             binding.searchButton.isEnabled = false
             val searchKW = binding.searchInput.text.toString()
             val retrofitWork = RetrofitWork()
-            retrofitWork.searchWork(searchKW, onSuccess, onFailure)
-
+            if (searchKW.isEmpty()) {
+                retrofitWork.wikiWork(onSuccess_empty, onFailure)
+            }
+            else {
+                retrofitWork.searchWork(searchKW, onSuccess, onFailure)
+            }
         }
 
         /* Todo: initRecycler 구현 ex) binding.wikiList.adapter=WikiListAdapter(response data) */
@@ -92,7 +103,7 @@ class HomeActivity : AppCompatActivity() {
                         override fun onClick(view: View, position: Int) {
                             val id = wikiList[position].id
 
-                            val intent = Intent(this@HomeActivity, WikiDetail::class.java)
+                            val intent = Intent(this@HomeActivity, WikiDetailActivity::class.java)
 
                             intent.apply {
                                 this.putExtra("id", id) // 데이터 넣기

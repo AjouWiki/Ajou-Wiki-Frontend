@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import com.ajoudb.ajouwiki.AddWikiAlertDialog
 import com.ajoudb.ajouwiki.R
 import android.view.View
+import android.widget.Toast
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.WikiDetail
@@ -41,12 +42,13 @@ class HomeActivity : AppCompatActivity() {
             addWikiDialog.show(object : AddWikiAlertDialog.OnDialogClickListener {
                 override fun onPositiveClick(title: String, tags: String) {
                     val onSuccess: () -> Unit = {
-
+                        Toast.makeText(this@HomeActivity,
+                            "업로드 완료", Toast.LENGTH_SHORT).show()
                     }
                     val onFailure : () -> Unit = {
+                        Toast.makeText(this@HomeActivity,
+                            "업로드 실패", Toast.LENGTH_SHORT).show()
                     }
-
-
                     val retrofitWork = RetrofitWork()
                     val wikiinfo = AddWikiRequestBody(title, tags)
                     retrofitWork.addWikiWork(wikiinfo, onSuccess, onFailure)

@@ -1,25 +1,23 @@
 package com.ajoudb.ajouwiki.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import com.ajoudb.ajouwiki.AddWikiAlertDialog
-import com.ajoudb.ajouwiki.R
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.ajoudb.ajouwiki.AddWikiAlertDialog
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.Wiki
-import com.ajoudb.ajouwiki.WikiDetail
 import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityHomeBinding
 import com.ajoudb.ajouwiki.network.addwiki.AddWikiRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.search.SearchResponseBody
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.Serializable
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -42,8 +40,19 @@ class HomeActivity : AppCompatActivity() {
             addWikiDialog.show(object : AddWikiAlertDialog.OnDialogClickListener {
                 override fun onPositiveClick(title: String, tags: String) {
                     val onSuccess: () -> Unit = {
-                        Toast.makeText(this@HomeActivity,
-                            "업로드 완료", Toast.LENGTH_SHORT).show()
+                        val onSuccess_empty: (wikiList: List<Wiki>) -> Unit = {
+                            data.clear()
+                            data.addAll(it)
+                            binding.wikiList.adapter?.notifyDataSetChanged()
+                            Toast.makeText(
+                                this@HomeActivity,
+                                "업로드 완료", Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        val onFailure : () -> Unit = {
+                        }
+                        val retrofitWork = RetrofitWork()
+                        retrofitWork.wikiWork(onSuccess_empty, onFailure)
                     }
                     val onFailure : () -> Unit = {
                         Toast.makeText(this@HomeActivity,
@@ -128,4 +137,5 @@ class HomeActivity : AppCompatActivity() {
             this.getSerializableExtra(key) as T?
         }
     }
+
 }

@@ -11,6 +11,7 @@ import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.databinding.ActivityLoginBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginActivity : AppCompatActivity() {
     private var mBinding: ActivityLoginBinding ?= null
@@ -25,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
             // 아이디 비번 입력 확인
             if (TextUtils.isEmpty(binding.idInput.text.toString()) ||
                     TextUtils.isEmpty(binding.passwordInput.text.toString())) {
-                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(getString(R.string.text_login))
                     .setMessage(getString(R.string.text_require_idpw))
                     .setPositiveButton(getString(R.string.text_confirm)) {
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 }
                 val onFailure : (Int) -> Unit = {
-                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                    val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.text_login_failure))
                     when (it) {
                         1 -> {

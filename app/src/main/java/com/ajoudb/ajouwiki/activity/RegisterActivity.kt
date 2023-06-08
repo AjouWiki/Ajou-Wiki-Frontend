@@ -11,6 +11,7 @@ import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerEmailCheck.setOnClickListener {
             // 이메일 중복 확인
             val onSuccess: () -> Unit = {
-                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(getString(R.string.text_success))
                     .setMessage(getString(R.string.text_available_email))
                     .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -44,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
             }
             val onFailure : (Int) -> Unit = {
                 if (it == 1) {
-                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                    val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.text_failure))
                         .setMessage(getString(R.string.text_dup_email))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -54,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                         .setCancelable(false)
                     builder.show()
                 } else if (it == 2) {
-                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                    val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.text_failure))
                         .setMessage(getString(R.string.text_network_check_and_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -70,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
             )
             // 이메일 유효성 검사
             if (!checkEmail(userEmail.email!!)) {
-                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(getString(R.string.text_register))
                     .setMessage(getString(R.string.text_should_ajou))
                     .setPositiveButton(getString(R.string.text_confirm)) {
@@ -88,7 +89,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerIdCheck.setOnClickListener {
             // 이메일 중복 확인
             val onSuccess: () -> Unit = {
-                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(getString(R.string.text_success))
                     .setMessage(getString(R.string.text_available_id))
                     .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -103,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
             }
             val onFailure : (Int) -> Unit = {
                 if (it == 1) {
-                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                    val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.text_failure))
                         .setMessage(getString(R.string.text_dup_id))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -113,7 +114,7 @@ class RegisterActivity : AppCompatActivity() {
                         .setCancelable(false)
                     builder.show()
                 } else if (it == 2) {
-                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                    val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.text_failure))
                         .setMessage(getString(R.string.text_network_check_and_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -134,7 +135,7 @@ class RegisterActivity : AppCompatActivity() {
         }
         binding.registerButton.setOnClickListener {
             val onSuccess: () -> Unit = {
-                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(getString(R.string.text_success))
                     .setMessage(getString(R.string.text_need_activate))
                     .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -146,7 +147,7 @@ class RegisterActivity : AppCompatActivity() {
             }
             val onFailure : (Int) -> Unit = {
                 if (it == 1) {
-                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                    val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.text_failure))
                         .setMessage(getString(R.string.text_try_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -155,7 +156,7 @@ class RegisterActivity : AppCompatActivity() {
                         }
                     builder.show()
                 } else if (it == 2) {
-                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                    val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.text_failure))
                         .setMessage(getString(R.string.text_network_check_and_again))
                         .setPositiveButton(getString(R.string.text_confirm)) { dialog, _ ->
@@ -172,7 +173,7 @@ class RegisterActivity : AppCompatActivity() {
                 TextUtils.isEmpty(binding.registerPasswordCheck.text.toString()) ||
                 !(binding.registerMaleButton.isChecked ||
                         binding.registerFemaleButton.isChecked)) {
-                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(getString(R.string.text_register))
                     .setMessage(getString(R.string.text_all_field_required))
                     .setPositiveButton(getString(R.string.text_confirm)) {
@@ -181,7 +182,7 @@ class RegisterActivity : AppCompatActivity() {
                 builder.show()
             }
             else if (binding.registerPassword.text.toString() != binding.registerPasswordCheck.text.toString()) {
-                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
+                val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(getString(R.string.text_check_password))
                     .setMessage(getString(R.string.text_not_equal_password))
                     .setPositiveButton(getString(R.string.text_confirm)) {

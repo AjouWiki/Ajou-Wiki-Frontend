@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import com.ajoudb.ajouwiki.R
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.databinding.ActivityLoginBinding
@@ -24,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
             // 아이디 비번 입력 확인
             if (TextUtils.isEmpty(binding.idInput.text.toString()) ||
                     TextUtils.isEmpty(binding.passwordInput.text.toString())) {
-                val builder = AlertDialog.Builder(this)
+                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
                 builder.setTitle(getString(R.string.text_login))
                     .setMessage(getString(R.string.text_require_idpw))
                     .setPositiveButton(getString(R.string.text_confirm)) {
@@ -42,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 }
                 val onFailure : (Int) -> Unit = {
-                    val builder = AlertDialog.Builder(this)
+                    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Alert_Button_Positive))
                     builder.setTitle(getString(R.string.text_login_failure))
                     when (it) {
                         1 -> {

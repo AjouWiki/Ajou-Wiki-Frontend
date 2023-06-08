@@ -7,6 +7,7 @@ import com.ajoudb.ajouwiki.network.checkid.CheckIdService
 import com.ajoudb.ajouwiki.network.search.SearchService
 import com.ajoudb.ajouwiki.network.signin.SignInService
 import com.ajoudb.ajouwiki.network.signup.SignUpService
+import com.ajoudb.ajouwiki.network.wiki.AddWikiDetailService
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailService
 import com.ajoudb.ajouwiki.network.wiki.WikiListService
 import okhttp3.OkHttpClient
@@ -130,5 +131,27 @@ object RetrofitAPI {
             .build()
 
         retrofit.create(AddWikiService::class.java)
+    }
+
+    val addWikiDetailService: AddWikiDetailService by lazy{
+        val authToken = TokenManager.getToken()
+        val authenticatedHttpClient = okHttpClient.newBuilder()
+            .addInterceptor { chain ->
+                val originalRequest = chain.request()
+                val newRequest = originalRequest.newBuilder()
+                    .addHeader("Jwt", "$authToken")
+                    .build()
+
+                chain.proceed(newRequest)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(authenticatedHttpClient)
+            .build()
+
+        retrofit.create(AddWikiDetailService::class.java)
     }
 }

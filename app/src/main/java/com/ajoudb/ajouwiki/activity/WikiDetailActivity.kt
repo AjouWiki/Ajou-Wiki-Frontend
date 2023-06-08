@@ -3,11 +3,9 @@ package com.ajoudb.ajouwiki.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.adapter.WikiDetailAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityWikiDetailBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
-import com.ajoudb.ajouwiki.network.search.SearchResponseBody
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
 
 class WikiDetailActivity : AppCompatActivity() {
@@ -25,7 +23,10 @@ class WikiDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.add.setOnClickListener {
-            val intent = Intent(this, AddWikiActivity::class.java)
+            val intent = Intent(this, AddWikiDetailActivity::class.java)
+            intent.apply {
+                this.putExtra("id", getExtra()) // 데이터 넣기
+            }
             startActivity(intent)
             onStop()
         }

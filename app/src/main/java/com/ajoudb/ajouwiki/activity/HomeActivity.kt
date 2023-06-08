@@ -5,10 +5,14 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import com.ajoudb.ajouwiki.AddWikiAlertDialog
+import com.ajoudb.ajouwiki.R
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityHomeBinding
+import com.ajoudb.ajouwiki.network.addwiki.AddWikiRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.search.SearchResponseBody
 import java.io.Serializable
@@ -30,8 +34,24 @@ class HomeActivity : AppCompatActivity() {
 
 
         binding.addWikiButton.setOnClickListener {
-            val intent = Intent(this, AddWikiActivity::class.java)
-            startActivity(intent)
+            val addWikiDialog = AddWikiAlertDialog(this)
+            addWikiDialog.show(object : AddWikiAlertDialog.OnDialogClickListener {
+                override fun onPositiveClick(title: String, tags: String) {
+                    val onSuccess: () -> Unit = {
+
+                    }
+                    val onFailure : () -> Unit = {
+                    }
+
+
+                    val retrofitWork = RetrofitWork()
+                    val wikiinfo = AddWikiRequestBody(title, tags)
+                    retrofitWork.addWikiWork(wikiinfo, onSuccess, onFailure)
+                }
+
+                override fun onNegativeClick() {
+                }
+            })
         }
 
         binding.myPageButton.setOnClickListener {

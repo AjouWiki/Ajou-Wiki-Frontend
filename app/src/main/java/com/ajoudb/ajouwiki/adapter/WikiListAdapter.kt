@@ -8,20 +8,31 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ajoudb.ajouwiki.R
-import com.ajoudb.ajouwiki.network.wiki.WikiListResponseBody
+import com.ajoudb.ajouwiki.Wiki
 
 /* Todo: WikiListResponse 정의 및 알맞게 바꾸기 */
 
-class WikiListAdapter internal constructor(var wikiList: List<WikiListResponseBody>)
+class WikiListAdapter internal constructor(var wikiList: List<Wiki>)
         : RecyclerView.Adapter<WikiListAdapter.ListViewHolder>() {
 
 
         inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-                fun bind(_list: WikiListResponseBody) {
+                fun bind(_list: Wiki) {
 
-                        itemView.findViewById<TextView>(R.id.iv_name).text = _list.wiki[0].name
+                        itemView.findViewById<TextView>(R.id.iv_name).text = _list.name!!
 
-                        itemView.findViewById<TextView>(R.id.iv_tag).text = _list.wiki[0].tags?.name
+                        var hashtags: String=""
+                        for(tag in _list.tags){
+                                hashtags += "#"
+                                hashtags += tag.name
+                                hashtags += " "
+                        }
+
+                        if(hashtags.length>15) {
+                                hashtags = hashtags.substring(0..15) + "..."
+                        }
+
+                        itemView.findViewById<TextView>(R.id.iv_tag).text = hashtags
 
                 }
         }

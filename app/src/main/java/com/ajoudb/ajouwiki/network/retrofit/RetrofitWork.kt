@@ -1,8 +1,8 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
-import android.util.Log
 import com.ajoudb.ajouwiki.TokenManager
 import com.ajoudb.ajouwiki.UserInfo
+import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailResponseBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
@@ -11,7 +11,6 @@ import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
 import com.ajoudb.ajouwiki.network.signin.SignInResponseBody
 import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
 import com.ajoudb.ajouwiki.network.signup.SignUpResponseBody
-import com.ajoudb.ajouwiki.network.wiki.WikiListResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
@@ -31,8 +30,10 @@ class RetrofitWork {
                         val statusCode = result?.status
                         val userInfoForReturn = result?.user_info
                         val token = result?.token
-                        TokenManager.setToken(token!!)
-                        if (statusCode == "200") onSuccess(userInfoForReturn!!)
+                        if (statusCode == "200") {
+                            TokenManager.setToken(token!!)
+                            onSuccess(userInfoForReturn!!)
+                        }
                         else if (statusCode == "403") onFailure(1)
                         else if (statusCode == "401") onFailure(3)
                     }
@@ -117,22 +118,24 @@ class RetrofitWork {
                 }
             })
     }
-    fun wikiWork(onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun wikiWork(onSuccess: (wikiList: List<Wiki>) -> Unit, onFailure: () -> Unit) {
         val service = RetrofitAPI.wikiListService
 
         service.wikiListByEnqueue()
-            .enqueue(object : retrofit2.Callback<WikiListResponseBody> {
+            .enqueue(object : retrofit2.Callback<List<Wiki>> {
                 override fun onResponse(
-                    call: Call<WikiListResponseBody>,
-                    response: Response<WikiListResponseBody>
+                    call: Call<List<Wiki>>,
+                    response: Response<List<Wiki>>
                 ) {
                     if (response.isSuccessful) {
                         val result = response.body()
-                        print(result)
-                        onSuccess()
+                        onSuccess(result!!)
+                    }
+                    else {
+                        onFailure()
                     }
                 }
-                override fun onFailure(call: Call<WikiListResponseBody>, t: Throwable) {
+                override fun onFailure(call: Call<List<Wiki>>, t: Throwable) {
                     onFailure()
 
                 }

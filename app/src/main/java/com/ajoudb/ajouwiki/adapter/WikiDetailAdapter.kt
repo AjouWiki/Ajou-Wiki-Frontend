@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ajoudb.ajouwiki.R
 import com.ajoudb.ajouwiki.network.wikiDetail.WikiDetailResponseBody
 
-/* Todo: WikiListResponse 정의 및 알맞게 바꾸기 */
+/* Todo: WikiDetailResponse 정의 및 알맞게 바꾸기 */
 
 class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetailResponseBody>)
     : RecyclerView.Adapter<WikiDetailAdapter.ListViewHolder>() {

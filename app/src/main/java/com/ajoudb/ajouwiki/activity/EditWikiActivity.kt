@@ -3,17 +3,17 @@ package com.ajoudb.ajouwiki.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.ajoudb.ajouwiki.databinding.ActivityAddWikiBinding
+import com.ajoudb.ajouwiki.databinding.ActivityEditWikiBinding
 
-class AddWikiActivity : AppCompatActivity() {
+class EditWikiActivity : AppCompatActivity() {
 
-    private var mBinding: ActivityAddWikiBinding ?= null
+    private var mBinding: ActivityEditWikiBinding?= null
 
     private val binding get() = mBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityAddWikiBinding.inflate(layoutInflater)
+        mBinding = ActivityEditWikiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val markdownEditText = binding.editText

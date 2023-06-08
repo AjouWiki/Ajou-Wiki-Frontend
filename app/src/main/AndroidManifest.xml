@@ -15,11 +15,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.AddWikiActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoBar"
+            android:name=".activity.EditWikiActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.WikiDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddWikiActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoBar" />
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"
@@ -43,8 +51,8 @@
             android:name=".activity.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register"
-            android:theme="@style/NoBar"
             android:screenOrientation="portrait"
+            android:theme="@style/NoBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.MyPageActivity"

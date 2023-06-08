@@ -1,11 +1,15 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
-import android.util.Log
+import com.ajoudb.ajouwiki.TokenManager
 import com.ajoudb.ajouwiki.UserInfo
+import com.ajoudb.ajouwiki.Wiki
+import com.ajoudb.ajouwiki.network.addwiki.AddWikiRequestBody
+import com.ajoudb.ajouwiki.network.addwiki.AddWikiResponseBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailResponseBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdResponseBody
+import com.ajoudb.ajouwiki.network.search.SearchResponseBody
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
 import com.ajoudb.ajouwiki.network.signin.SignInResponseBody
 import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
@@ -28,7 +32,11 @@ class RetrofitWork {
                         val result = response.body()
                         val statusCode = result?.status
                         val userInfoForReturn = result?.user_info
-                        if (statusCode == "200") onSuccess(userInfoForReturn!!)
+                        val token = result?.token
+                        if (statusCode == "200") {
+                            TokenManager.setToken(token!!)
+                            onSuccess(userInfoForReturn!!)
+                        }
                         else if (statusCode == "403") onFailure(1)
                         else if (statusCode == "401") onFailure(3)
                     }
@@ -113,5 +121,76 @@ class RetrofitWork {
                 }
             })
     }
+    fun wikiWork(onSuccess: (wikiList: List<Wiki>) -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.wikiListService
 
+        service.wikiListByEnqueue()
+            .enqueue(object : retrofit2.Callback<List<Wiki>> {
+                override fun onResponse(
+                    call: Call<List<Wiki>>,
+                    response: Response<List<Wiki>>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        onSuccess(result!!)
+                    }
+                    else {
+                        onFailure()
+                    }
+                }
+                override fun onFailure(call: Call<List<Wiki>>, t: Throwable) {
+                    onFailure()
+
+                }
+            })
+    }
+    fun searchWork(searchKW: String,
+                   onSuccess: (wikiList: SearchResponseBody) -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.searchService
+
+        service.searchByEnqueue(searchKW)
+            .enqueue(object : retrofit2.Callback<SearchResponseBody> {
+                override fun onResponse(
+                    call: Call<SearchResponseBody>,
+                    response: Response<SearchResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        onSuccess(result!!)
+                    }
+                    else {
+                        onFailure()
+                    }
+                }
+                override fun onFailure(call: Call<SearchResponseBody>, t: Throwable) {
+                    onFailure()
+
+                }
+            })
+    }
+    fun addWikiWork(wikiinfo: AddWikiRequestBody,
+                    onSuccess: () -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.addWikiService
+
+        service.addWikiByEnqueue(wikiinfo)
+            .enqueue(object : retrofit2.Callback<AddWikiResponseBody> {
+                override fun onResponse(
+                    call: Call<AddWikiResponseBody>,
+                    response: Response<AddWikiResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        val statusCode = result?.status
+                        if (statusCode == 200) {
+                            onSuccess()
+                        }
+                        else onFailure()
+                    }
+                }
+                override fun onFailure(call: Call<AddWikiResponseBody>, t: Throwable) {
+                    onFailure()
+
+                }
+            })
+    }
 }

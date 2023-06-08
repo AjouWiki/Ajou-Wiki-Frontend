@@ -40,5 +40,8 @@
     <string name="text_available_id">사용가능한 아이디입니다</string>
     <string name="text_dup_id">중복된 아이디가 존재합니다</string>
     <string name="text_still_inactivate">가입한 이메일의 받은편지함을 확인하여 계정 활성화 후 다시 로그인해주세요</string>
+    <string name="text_complete">완료</string>
+    <string name="text_put">수정</string>
+
 
 </resources>

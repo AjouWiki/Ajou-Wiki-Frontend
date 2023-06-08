@@ -34,9 +34,10 @@ class LoginActivity : AppCompatActivity() {
 
             }
             else {
-                val onSuccess: (UserInfo) -> Unit = {
+                val onSuccess: (UserInfo) -> Unit = { userInfo ->
                     val intent = Intent(this, HomeActivity::class.java)
-                    intent.putExtra("user_info", it)
+                    intent.putExtra("user_info", userInfo)
+
                     startActivity(intent)
                     finish()
                 }
@@ -50,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
                                     dialog.dismiss()
                                     binding.loginButton.isEnabled = true
                                 }
+                                .setCancelable(false)
                             builder.show()
                         }
                         2 -> {
@@ -58,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                                     dialog.dismiss()
                                     binding.loginButton.isEnabled = true
                                 }
+                                .setCancelable(false)
                             builder.show()
                         }
                         3 -> {
@@ -66,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
                                     dialog.dismiss()
                                     binding.loginButton.isEnabled = true
                                 }
+                                .setCancelable(false)
                             builder.show()
                         }
                     }

@@ -1,9 +1,11 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
+import com.ajoudb.ajouwiki.TokenManager
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailService
 import com.ajoudb.ajouwiki.network.checkid.CheckIdService
 import com.ajoudb.ajouwiki.network.signin.SignInService
 import com.ajoudb.ajouwiki.network.signup.SignUpService
+import com.ajoudb.ajouwiki.network.wiki.WikiListService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,5 +42,25 @@ object RetrofitAPI {
     val checkIdService: CheckIdService by lazy {
         retrofit.create(CheckIdService::class.java)
     }
+    val wikiListService: WikiListService by lazy {
+        val authToken = TokenManager.getToken()
+        val authenticatedHttpClient = okHttpClient.newBuilder()
+            .addInterceptor { chain ->
+                val originalRequest = chain.request()
+                val newRequest = originalRequest.newBuilder()
+                    .addHeader("Jwt", "$authToken")
+                    .build()
 
+                chain.proceed(newRequest)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(authenticatedHttpClient)
+            .build()
+
+        retrofit.create(WikiListService::class.java)
+    }
 }

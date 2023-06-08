@@ -9,5 +9,7 @@ data class SignInResponseBody(
     @SerializedName("status")
     val status: String?,
     @SerializedName("user_info")
-    val user_info: UserInfo?
+    val user_info: UserInfo?,
+    @SerializedName("token")
+    val token: String?
 )

@@ -14,8 +14,6 @@ import com.ajoudb.ajouwiki.Wiki
 
 class WikiListAdapter internal constructor(var wikiList: List<Wiki>)
         : RecyclerView.Adapter<WikiListAdapter.ListViewHolder>() {
-
-
         inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 fun bind(_list: Wiki) {
 

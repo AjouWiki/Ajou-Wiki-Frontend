@@ -1,15 +1,16 @@
 package com.ajoudb.ajouwiki.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityHomeBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
+import com.ajoudb.ajouwiki.network.search.SearchResponseBody
 import java.io.Serializable
 
 class HomeActivity : AppCompatActivity() {
@@ -17,6 +18,9 @@ class HomeActivity : AppCompatActivity() {
     private var mBinding: ActivityHomeBinding?= null
     private val binding get() = mBinding!!
 
+    private var data: ArrayList<Wiki> = arrayListOf()
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityHomeBinding.inflate(layoutInflater)
@@ -37,12 +41,30 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.searchButton.setOnClickListener {
-            /* Todo: 검색 기능 구현*/
+            val onSuccess: (wikiList: SearchResponseBody) -> Unit = {
+                data.clear()
+                data.addAll(it.result)
+                binding.wikiList.adapter?.notifyDataSetChanged()
+                binding.searchButton.isEnabled = true
+            }
+            val onFailure : () -> Unit = {
+                data.clear()
+                binding.wikiList.adapter?.notifyDataSetChanged()
+                binding.searchButton.isEnabled = true
+            }
+            binding.searchButton.isEnabled = false
+            val searchKW = binding.searchInput.text.toString()
+            val retrofitWork = RetrofitWork()
+            retrofitWork.searchWork(searchKW, onSuccess, onFailure)
+
         }
 
         /* Todo: initRecycler 구현 ex) binding.wikiList.adapter=WikiListAdapter(response data) */
         val onSuccess: (wikiList: List<Wiki>) -> Unit = {
-            binding.wikiList.adapter = WikiListAdapter(it)
+            data.clear()
+            data.addAll(it)
+
+            binding.wikiList.adapter = WikiListAdapter(data)
         }
         val onFailure : () -> Unit = {
         }

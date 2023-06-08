@@ -7,6 +7,7 @@ import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailResponseBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdResponseBody
+import com.ajoudb.ajouwiki.network.search.SearchResponseBody
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
 import com.ajoudb.ajouwiki.network.signin.SignInResponseBody
 import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
@@ -136,6 +137,30 @@ class RetrofitWork {
                     }
                 }
                 override fun onFailure(call: Call<List<Wiki>>, t: Throwable) {
+                    onFailure()
+
+                }
+            })
+    }
+    fun searchWork(searchKW: String,
+                   onSuccess: (wikiList: SearchResponseBody) -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.searchService
+
+        service.searchByEnqueue(searchKW)
+            .enqueue(object : retrofit2.Callback<SearchResponseBody> {
+                override fun onResponse(
+                    call: Call<SearchResponseBody>,
+                    response: Response<SearchResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        onSuccess(result!!)
+                    }
+                    else {
+                        onFailure()
+                    }
+                }
+                override fun onFailure(call: Call<SearchResponseBody>, t: Throwable) {
                     onFailure()
 
                 }

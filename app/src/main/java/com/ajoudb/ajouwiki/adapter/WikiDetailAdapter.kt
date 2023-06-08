@@ -6,20 +6,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ajoudb.ajouwiki.R
-import com.ajoudb.ajouwiki.network.wikiDetail.WikiDetailResponseBody
+import com.ajoudb.ajouwiki.WikiDetail
 
 /* Todo: WikiDetailResponse 정의 및 알맞게 바꾸기 */
 
-class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetailResponseBody>)
+class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetail>)
     : RecyclerView.Adapter<WikiDetailAdapter.ListViewHolder>() {
 
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(_list: WikiDetailResponseBody) {
+        fun bind(_list: WikiDetail) {
 
-            itemView.findViewById<TextView>(R.id.wiki_detail_title).text = _list.wiki[0].name
+            itemView.findViewById<TextView>(R.id.wiki_detail_title).text = _list.title
 
-            itemView.findViewById<TextView>(R.id.wikiText).text = _list.wiki[0].tags?.name
+            itemView.findViewById<TextView>(R.id.wikiText).text = _list.description
 
         }
     }

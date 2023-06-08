@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.ajoudb.ajouwiki.databinding.ActivityAddWikiDetailBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.wiki.AddWikiDetailRequestBody
+import com.yahiaangelo.markdownedittext.MarkdownEditText
 
 class AddWikiDetailActivity : AppCompatActivity() {
 
@@ -25,6 +26,9 @@ class AddWikiDetailActivity : AppCompatActivity() {
 
         val markdownEditText = binding.editText
         val stylesBar = binding.stylesBar
+
+        stylesBar.stylesList = arrayOf(MarkdownEditText.TextStyle.UNORDERED_LIST,
+            MarkdownEditText.TextStyle.LINK)
 
         markdownEditText.setStylesBar(stylesBar)
 

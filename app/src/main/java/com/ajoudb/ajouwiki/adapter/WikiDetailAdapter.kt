@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ajoudb.ajouwiki.R
 import com.ajoudb.ajouwiki.WikiDetail
+import com.yahiaangelo.markdownedittext.MarkdownEditText
 
 /* Todo: WikiDetailResponse 정의 및 알맞게 바꾸기 */
 
@@ -19,7 +20,11 @@ class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetail>)
 
             itemView.findViewById<TextView>(R.id.wiki_detail_title).text = _list.title
 
-            itemView.findViewById<TextView>(R.id.wikiText).text = _list.description
+            itemView.findViewById<MarkdownEditText>(R.id.wikiText).renderMD(_list.description!!)
+
+            itemView.findViewById<TextView>(R.id.put_button).setOnClickListener {
+                itemClickListner.onClick(it, position)
+            }
 
         }
     }
@@ -40,9 +45,9 @@ class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetail>)
     // 반환된 ViewHolder에 데이터를 연결한다.
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(wikiDetail[position])
-        holder.itemView.setOnClickListener{
+        /*holder.itemView.setOnClickListener{
             itemClickListner.onClick(it,position)
-        }
+        }*/
     }
 
     interface ItemClickListener{

@@ -3,7 +3,9 @@ package com.ajoudb.ajouwiki.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.ajoudb.ajouwiki.adapter.WikiDetailAdapter
+import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityWikiDetailBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
@@ -39,7 +41,21 @@ class WikiDetailActivity : AppCompatActivity() {
 
         val onSuccess: (wikiDetail: WikiDetailResponseBody) -> Unit = {
             binding.title.text = it.result.name
-            binding.wikiDetailList.adapter = WikiDetailAdapter(it.result.wiki_details!!)
+            binding.wikiDetailList.adapter = WikiDetailAdapter(it.result.wiki_details!!).apply{
+                setItemClickListener(
+                    object : WikiDetailAdapter.ItemClickListener {
+                        override fun onClick(view: View, position: Int) {
+                            val id = wikiDetail[position].id
+
+                            val intent = Intent(this@WikiDetailActivity, EditWikiActivity::class.java)
+
+                            intent.apply {
+                                this.putExtra("id", id) // 데이터 넣기
+                            }
+                            startActivity(intent)
+                        }
+                    })
+            }
         }
         val onFailure : () -> Unit = {
         }

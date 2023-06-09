@@ -41,6 +41,17 @@ class WikiDetailActivity : AppCompatActivity() {
 
         val onSuccess: (wikiDetail: WikiDetailResponseBody) -> Unit = {
             binding.title.text = it.result.name
+
+            var tags=""
+
+            for(tag in it.result.tags){
+                tags += "#"
+                tags += tag.name
+                tags += " "
+            }
+
+            binding.tag.text = tags
+
             binding.wikiDetailList.adapter = WikiDetailAdapter(it.result.wiki_details!!).apply{
                 setItemClickListener(
                     object : WikiDetailAdapter.ItemClickListener {

@@ -11,7 +11,7 @@
         android:id="@+id/wiki_detail_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/wiki_detail_list">
 
@@ -39,6 +39,18 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginEnd="70dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"></TextView>
+
+    <TextView
+        android:id="@+id/tag"
+        android:text="#tag #tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"></TextView>
 
 

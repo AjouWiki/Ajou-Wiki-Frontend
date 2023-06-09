@@ -1,7 +1,6 @@
 package com.ajoudb.ajouwiki.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,7 +12,7 @@ import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityHomeBinding
-import com.ajoudb.ajouwiki.network.addwiki.AddWikiRequestBody
+import com.ajoudb.ajouwiki.network.wiki.AddWikiRequestBody
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.search.SearchResponseBody
 import java.io.Serializable
@@ -117,7 +116,6 @@ class HomeActivity : AppCompatActivity() {
                     object : WikiListAdapter.ItemClickListener {
                         override fun onClick(view: View, position: Int) {
                             val id = wikiList[position].id
-
                             val intent = Intent(this@HomeActivity, WikiDetailActivity::class.java)
 
                             intent.apply {

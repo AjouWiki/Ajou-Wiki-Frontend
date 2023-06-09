@@ -3,8 +3,8 @@ package com.ajoudb.ajouwiki.network.retrofit
 import com.ajoudb.ajouwiki.TokenManager
 import com.ajoudb.ajouwiki.UserInfo
 import com.ajoudb.ajouwiki.Wiki
-import com.ajoudb.ajouwiki.network.addwiki.AddWikiRequestBody
-import com.ajoudb.ajouwiki.network.addwiki.AddWikiResponseBody
+import com.ajoudb.ajouwiki.network.wiki.AddWikiRequestBody
+import com.ajoudb.ajouwiki.network.wiki.AddWikiResponseBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailResponseBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody

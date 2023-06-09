@@ -22,9 +22,9 @@ class AddWikiAlertDialog(private val context: Context) {
         val alertDialogBuilder = MaterialAlertDialogBuilder(context)
             .setView(dialogView)
             .setPositiveButton("확인") { _, _ ->
-                val title = editText1.text.toString()
+                val name = editText1.text.toString()
                 val tags = editText2.text.toString()
-                onDialogClickListener.onPositiveClick(title, tags)
+                onDialogClickListener.onPositiveClick(name, tags)
             }
             .setNegativeButton("취소") { _, _ ->
                 onDialogClickListener.onNegativeClick()

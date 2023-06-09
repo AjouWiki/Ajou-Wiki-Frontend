@@ -35,7 +35,7 @@ class AddWikiDetailActivity : AppCompatActivity() {
         binding.complete.setOnClickListener {
             //마크다운 잘 넘어감 (bold, italic은 안됨;;)
             Log.d("check", binding.editText.getMD())
-
+            binding.complete.isEnabled = false
             addWikiDetail()
         }
 
@@ -50,6 +50,7 @@ class AddWikiDetailActivity : AppCompatActivity() {
         val onFailure : () -> Unit = {
             Toast.makeText(this@AddWikiDetailActivity,
                 "업로드 실패...", Toast.LENGTH_SHORT).show()
+            binding.complete.isEnabled = true
         }
 
         val id=getExtra()

@@ -36,6 +36,7 @@ class HomeActivity : AppCompatActivity() {
 
 
         binding.addWikiButton.setOnClickListener {
+            binding.addWikiButton.isEnabled = false
             val addWikiDialog = AddWikiAlertDialog(this)
             addWikiDialog.show(object : AddWikiAlertDialog.OnDialogClickListener {
                 override fun onPositiveClick(title: String, tags: String) {
@@ -48,8 +49,10 @@ class HomeActivity : AppCompatActivity() {
                                 this@HomeActivity,
                                 "업로드 완료", Toast.LENGTH_SHORT
                             ).show()
+                            binding.addWikiButton.isEnabled = true
                         }
                         val onFailure : () -> Unit = {
+                            binding.addWikiButton.isEnabled = true
                         }
                         val retrofitWork = RetrofitWork()
                         retrofitWork.wikiWork(onSuccess_empty, onFailure)
@@ -57,6 +60,7 @@ class HomeActivity : AppCompatActivity() {
                     val onFailure : () -> Unit = {
                         Toast.makeText(this@HomeActivity,
                             "업로드 실패", Toast.LENGTH_SHORT).show()
+                        binding.addWikiButton.isEnabled = true
                     }
                     val retrofitWork = RetrofitWork()
                     val wikiinfo = AddWikiRequestBody(title, tags)

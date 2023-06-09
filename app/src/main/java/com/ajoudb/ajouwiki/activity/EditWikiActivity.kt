@@ -27,6 +27,10 @@ class EditWikiActivity : AppCompatActivity() {
         return intent.getStringExtra("description")!!
     }
 
+    private fun getWikiId(): Int {
+        return intent.getIntExtra("wikiId", 0)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityEditWikiBinding.inflate(layoutInflater)
@@ -67,8 +71,9 @@ class EditWikiActivity : AppCompatActivity() {
         val id=getId()
         val title=binding.title.text.toString()
         val description=binding.editText.getMD()
+        val wikiId=getWikiId()
         val retrofitWork = RetrofitWork()
         val wikiDetail = AddWikiDetailRequestBody(title=title, description = description)
-        retrofitWork.editWikiDetailWork(wikiDetail, id, onSuccess, onFailure)
+        retrofitWork.editWikiDetailWork(wikiDetail, wikiId, id, onSuccess, onFailure)
     }
 }

@@ -59,6 +59,7 @@ class WikiDetailActivity : AppCompatActivity() {
                             val id = wikiDetail[position].id
                             val title = wikiDetail[position].title
                             val description = wikiDetail[position].description
+                            val wikiId = wikiDetail[position].wiki_id
 
                             val intent = Intent(this@WikiDetailActivity, EditWikiActivity::class.java)
 
@@ -66,6 +67,7 @@ class WikiDetailActivity : AppCompatActivity() {
                                 this.putExtra("id", id) // 데이터 넣기
                                 this.putExtra("title", title)
                                 this.putExtra("description", description)
+                                this.putExtra("wikiId", wikiId)
                             }
                             startActivity(intent)
                         }

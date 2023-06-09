@@ -249,11 +249,11 @@ class RetrofitWork {
             })
     }
 
-    fun editWikiDetailWork(wikiDetail: AddWikiDetailRequestBody, id: Int,
+    fun editWikiDetailWork(wikiDetail: AddWikiDetailRequestBody, id: Int, detail_pk: Int,
                           onSuccess: () -> Unit, onFailure: () -> Unit) {
         val service = RetrofitAPI.editWikiDetailService
 
-        service.editWikiDetailByEnqueue(wikiDetail, id)
+        service.editWikiDetailByEnqueue(wikiDetail, id, detail_pk)
             .enqueue(object : retrofit2.Callback<AddWikiDetailResponseBody> {
                 override fun onResponse(
                     call: Call<AddWikiDetailResponseBody>,

@@ -8,9 +8,10 @@ import retrofit2.http.Path
 
 interface EditWikiDetailService {
     @Headers("Content-Type: application/json")
-    @PUT("wikis/{id}")
+    @PUT("wikis/{id}/{detail_pk}")
     fun editWikiDetailByEnqueue(
         @Body addWiki: AddWikiDetailRequestBody,
-        @Path("id") id: Int
+        @Path("id") id: Int,
+        @Path("detail_pk") detail_pk: Int
     ): Call<AddWikiDetailResponseBody>
 }

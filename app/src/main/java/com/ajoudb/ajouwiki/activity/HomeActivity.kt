@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
             binding.addWikiButton.isEnabled = false
             val addWikiDialog = AddWikiAlertDialog(this)
             addWikiDialog.show(object : AddWikiAlertDialog.OnDialogClickListener {
-                override fun onPositiveClick(title: String, tags: String) {
+                override fun onPositiveClick(name: String, tags: String) {
                     val onSuccess: () -> Unit = {
                         val onSuccess_empty: (wikiList: List<Wiki>) -> Unit = {
                             data.clear()
@@ -63,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
                         binding.addWikiButton.isEnabled = true
                     }
                     val retrofitWork = RetrofitWork()
-                    val wikiinfo = AddWikiRequestBody(title, tags)
+                    val wikiinfo = AddWikiRequestBody(name, tags)
                     retrofitWork.addWikiWork(wikiinfo, onSuccess, onFailure)
                 }
 

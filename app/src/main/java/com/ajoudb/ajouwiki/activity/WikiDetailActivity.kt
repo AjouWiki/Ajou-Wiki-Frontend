@@ -4,10 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import com.ajoudb.ajouwiki.AddWikiAlertDialog
+import com.ajoudb.ajouwiki.EditWikiAlertDialog
+import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.adapter.WikiDetailAdapter
 import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityWikiDetailBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
+import com.ajoudb.ajouwiki.network.wiki.AddWikiRequestBody
+import com.ajoudb.ajouwiki.network.wiki.EditWikiRequestBody
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
 
 class WikiDetailActivity : AppCompatActivity() {
@@ -31,6 +37,28 @@ class WikiDetailActivity : AppCompatActivity() {
             }
             startActivity(intent)
             onStop()
+        }
+
+        binding.editTag.setOnClickListener{
+            binding.editTag.isEnabled = false
+            val editWikiDialog = EditWikiAlertDialog(this)
+            editWikiDialog.show(object : EditWikiAlertDialog.OnDialogClickListener {
+                override fun onPositiveClick(tags: String) {
+                    val onSuccess: () -> Unit = {
+
+                    }
+                    val onFailure: () -> Unit = {
+
+                    }
+
+                    val retrofitWork = RetrofitWork()
+                    val wikiinfo = EditWikiRequestBody(tags)
+                    retrofitWork.editWikiWork(wikiinfo, onSuccess, onFailure)
+                }
+
+                override fun onNegativeClick() {
+                }
+            })
         }
 
         initView()

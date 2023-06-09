@@ -16,6 +16,7 @@ import com.ajoudb.ajouwiki.network.signup.SignUpRequestBody
 import com.ajoudb.ajouwiki.network.signup.SignUpResponseBody
 import com.ajoudb.ajouwiki.network.wiki.AddWikiDetailRequestBody
 import com.ajoudb.ajouwiki.network.wiki.AddWikiDetailResponseBody
+import com.ajoudb.ajouwiki.network.wiki.EditWikiRequestBody
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -269,6 +270,32 @@ class RetrofitWork {
                     }
                 }
                 override fun onFailure(call: Call<AddWikiDetailResponseBody>, t: Throwable) {
+                    onFailure()
+
+                }
+            })
+    }
+
+    fun editWikiWork(tags: EditWikiRequestBody, id: Int,
+                           onSuccess: () -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.editWikiService
+
+        service.editWikiByEnqueue(tags, id)
+            .enqueue(object : retrofit2.Callback<AddWikiResponseBody> {
+                override fun onResponse(
+                    call: Call<AddWikiResponseBody>,
+                    response: Response<AddWikiResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        val statusCode = response.code()
+                        if (statusCode == 200) {
+                            onSuccess()
+                        }
+                        else onFailure()
+                    }
+                }
+                override fun onFailure(call: Call<AddWikiResponseBody>, t: Throwable) {
                     onFailure()
 
                 }

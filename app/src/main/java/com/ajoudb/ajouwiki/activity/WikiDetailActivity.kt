@@ -80,6 +80,12 @@ class WikiDetailActivity : AppCompatActivity() {
 
             binding.tag.text = tags
 
+            if(it.result.wiki_details.isEmpty()){
+                binding.empty.visibility = View.VISIBLE
+            } else{
+                binding.empty.visibility = View.INVISIBLE
+            }
+
             binding.wikiDetailList.adapter = WikiDetailAdapter(it.result.wiki_details!!).apply{
                 setItemClickListener(
                     object : WikiDetailAdapter.ItemClickListener {

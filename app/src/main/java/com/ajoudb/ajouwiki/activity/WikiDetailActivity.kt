@@ -41,19 +41,28 @@ class WikiDetailActivity : AppCompatActivity() {
 
         binding.editTag.setOnClickListener{
             binding.editTag.isEnabled = false
-            val editWikiDialog = EditWikiAlertDialog(this)
+            var tags = binding.tag.text.toString()
+            val tagList = tags.split(" #").map { it.trim() }.filter { it.isNotBlank() }
+            val updatedTags = tagList.joinToString(" ")
+            val id = getExtra()
+            val editWikiDialog = EditWikiAlertDialog(this, updatedTags)
             editWikiDialog.show(object : EditWikiAlertDialog.OnDialogClickListener {
                 override fun onPositiveClick(tags: String) {
                     val onSuccess: () -> Unit = {
-
+                        Toast.makeText(this@WikiDetailActivity,
+                            "수정 완료.", Toast.LENGTH_SHORT).show()
+                        finish()
                     }
                     val onFailure: () -> Unit = {
-
+                        Toast.makeText(this@WikiDetailActivity,
+                            "수정 실패.", Toast.LENGTH_SHORT).show()
+                        finish()
                     }
 
+
                     val retrofitWork = RetrofitWork()
-                    val wikiinfo = EditWikiRequestBody(tags)
-                    retrofitWork.editWikiWork(wikiinfo, onSuccess, onFailure)
+                    val tags = EditWikiRequestBody(tags)
+                    retrofitWork.editWikiWork(tags, id, onSuccess, onFailure)
                 }
 
                 override fun onNegativeClick() {

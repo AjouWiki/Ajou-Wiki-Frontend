@@ -1,4 +1,4 @@
-package com.ajoudb.ajouwiki.network.addwiki
+package com.ajoudb.ajouwiki.network.wiki
 
 import com.google.gson.annotations.SerializedName
 

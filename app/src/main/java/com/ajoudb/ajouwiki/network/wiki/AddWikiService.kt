@@ -1,4 +1,4 @@
-package com.ajoudb.ajouwiki.network.addwiki
+package com.ajoudb.ajouwiki.network.wiki
 
 import retrofit2.Call
 import retrofit2.http.Body

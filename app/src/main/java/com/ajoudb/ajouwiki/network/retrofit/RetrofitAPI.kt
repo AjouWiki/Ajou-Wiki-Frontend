@@ -1,7 +1,7 @@
 package com.ajoudb.ajouwiki.network.retrofit
 
 import com.ajoudb.ajouwiki.TokenManager
-import com.ajoudb.ajouwiki.network.addwiki.AddWikiService
+import com.ajoudb.ajouwiki.network.wiki.AddWikiService
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailService
 import com.ajoudb.ajouwiki.network.checkid.CheckIdService
 import com.ajoudb.ajouwiki.network.search.SearchService

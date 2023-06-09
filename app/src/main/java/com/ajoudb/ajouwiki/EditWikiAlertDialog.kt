@@ -14,19 +14,20 @@ class EditWikiAlertDialog(private val context: Context, private val tags: String
     }
 
     fun show(onDialogClickListener: OnDialogClickListener) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.activity_edit_wiki, null)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.modify_wiki_dialog, null)
 
-        val editText = dialogView.findViewById<EditText>(R.id.editText)
-        editText.setText(tags)
+        val editText1 = dialogView.findViewById<EditText>(R.id.editText1)
+        editText1.setText(tags)
         val alertDialogBuilder = MaterialAlertDialogBuilder(context)
             .setView(dialogView)
             .setPositiveButton("확인") { _, _ ->
-                val tags = editText.text.toString()
+                val tags = editText1.text.toString()
                 onDialogClickListener.onPositiveClick(tags)
             }
             .setNegativeButton("취소") { _, _ ->
                 onDialogClickListener.onNegativeClick()
             }
+            .setCancelable(false)
             .create()
 
         alertDialogBuilder.show()

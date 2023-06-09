@@ -26,8 +26,8 @@ class WikiListAdapter internal constructor(var wikiList: List<Wiki>)
                                 hashtags += " "
                         }
 
-                        if(hashtags.length>15) {
-                                hashtags = hashtags.substring(0..15) + "..."
+                        if(hashtags.length>50) {
+                                hashtags = hashtags.substring(0..50) + "..."
                         }
 
                         itemView.findViewById<TextView>(R.id.iv_tag).text = hashtags

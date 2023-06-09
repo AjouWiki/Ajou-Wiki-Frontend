@@ -20,6 +20,7 @@ class WikiDetailActivity : AppCompatActivity() {
     private var mBinding: ActivityWikiDetailBinding?= null
     private val binding get() = mBinding!!
 
+    private var originTags = ""
     private fun getExtra(): Int {
         return intent.getIntExtra("id", 0)
     }
@@ -41,9 +42,9 @@ class WikiDetailActivity : AppCompatActivity() {
 
         binding.editTag.setOnClickListener{
             binding.editTag.isEnabled = false
-            var tags = binding.tag.text.toString()
-            val tagList = tags.split(" #").map { it.trim() }.filter { it.isNotBlank() }
-            val updatedTags = tagList.joinToString(" ")
+            var tags = originTags
+            val tagList = tags.split("#").map { it.trim() }.filter { it.isNotBlank() }
+            val updatedTags = tagList.joinToString(", ")
             val id = getExtra()
             val editWikiDialog = EditWikiAlertDialog(this, updatedTags)
             editWikiDialog.show(object : EditWikiAlertDialog.OnDialogClickListener {
@@ -51,12 +52,12 @@ class WikiDetailActivity : AppCompatActivity() {
                     val onSuccess: () -> Unit = {
                         Toast.makeText(this@WikiDetailActivity,
                             "수정 완료.", Toast.LENGTH_SHORT).show()
-                        finish()
+                        binding.editTag.isEnabled = true
                     }
                     val onFailure: () -> Unit = {
                         Toast.makeText(this@WikiDetailActivity,
                             "수정 실패.", Toast.LENGTH_SHORT).show()
-                        finish()
+                        binding.editTag.isEnabled = true
                     }
 
 
@@ -66,6 +67,7 @@ class WikiDetailActivity : AppCompatActivity() {
                 }
 
                 override fun onNegativeClick() {
+                    binding.editTag.isEnabled = true
                 }
             })
         }
@@ -85,6 +87,10 @@ class WikiDetailActivity : AppCompatActivity() {
                 tags += "#"
                 tags += tag.name
                 tags += " "
+            }
+            originTags = tags
+            if(tags.length>30) {
+                tags = tags.substring(0..30) + "..."
             }
 
             binding.tag.text = tags

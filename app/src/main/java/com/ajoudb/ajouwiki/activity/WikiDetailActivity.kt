@@ -5,14 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.ajoudb.ajouwiki.AddWikiAlertDialog
 import com.ajoudb.ajouwiki.EditWikiAlertDialog
-import com.ajoudb.ajouwiki.Wiki
 import com.ajoudb.ajouwiki.adapter.WikiDetailAdapter
-import com.ajoudb.ajouwiki.adapter.WikiListAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityWikiDetailBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
-import com.ajoudb.ajouwiki.network.wiki.AddWikiRequestBody
 import com.ajoudb.ajouwiki.network.wiki.EditWikiRequestBody
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
 
@@ -110,7 +106,7 @@ class WikiDetailActivity : AppCompatActivity() {
                             val description = wikiDetail[position].description
                             val wikiId = wikiDetail[position].wiki_id
 
-                            val intent = Intent(this@WikiDetailActivity, EditWikiActivity::class.java)
+                            val intent = Intent(this@WikiDetailActivity, EditWikiDetailActivity::class.java)
 
                             intent.apply {
                                 this.putExtra("id", id) // 데이터 넣기

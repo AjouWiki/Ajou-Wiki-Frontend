@@ -9,7 +9,7 @@ import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.wiki.AddWikiDetailRequestBody
 import com.yahiaangelo.markdownedittext.MarkdownEditText
 
-class EditWikiActivity : AppCompatActivity() {
+class EditWikiDetailActivity : AppCompatActivity() {
 
     private var mBinding: ActivityEditWikiBinding?= null
 
@@ -58,12 +58,12 @@ class EditWikiActivity : AppCompatActivity() {
 
     private fun editWikiDetail(){
         val onSuccess: () -> Unit = {
-            Toast.makeText(this@EditWikiActivity,
+            Toast.makeText(this@EditWikiDetailActivity,
                 "업로드 완료.", Toast.LENGTH_SHORT).show()
             finish()
         }
         val onFailure : () -> Unit = {
-            Toast.makeText(this@EditWikiActivity,
+            Toast.makeText(this@EditWikiDetailActivity,
                 "업로드 실패...", Toast.LENGTH_SHORT).show()
             binding.complete.isEnabled = true
         }

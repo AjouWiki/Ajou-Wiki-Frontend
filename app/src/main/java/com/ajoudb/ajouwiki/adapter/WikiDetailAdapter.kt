@@ -23,7 +23,7 @@ class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetail>)
             itemView.findViewById<MarkdownEditText>(R.id.wikiText).renderMD(_list.description!!)
 
             itemView.findViewById<TextView>(R.id.put_button).setOnClickListener {
-                itemClickListner.onClick(it, position)
+                itemClickListener.onClick(it, position)
             }
 
         }
@@ -54,10 +54,10 @@ class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetail>)
         fun onClick(view: View,position: Int)
     }
     //를릭 리스너
-    private lateinit var itemClickListner: ItemClickListener
+    private lateinit var itemClickListener: ItemClickListener
 
     fun setItemClickListener(itemClickListener: ItemClickListener) {
-        this.itemClickListner = itemClickListener
+        this.itemClickListener = itemClickListener
     }
 
 }

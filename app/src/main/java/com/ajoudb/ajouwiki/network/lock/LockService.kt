@@ -1,4 +1,4 @@
-package com.ajoudb.ajouwiki.network.signin;
+package com.ajoudb.ajouwiki.network.lock;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -8,9 +8,9 @@ import retrofit2.http.Path
 
 interface LockService {
     @Headers("Content-Type: application/json")
-    @GET("wikis/{id}")
-    fun GetLockByEnqueue(
-        @Body id: LockRequestBody,
-        @Path("id") wiki_id: Int
+    @GET("wikis/{id}/{detail_pk}/LOCK")
+    fun lockByEnqueue(
+        @Path("id") id: Int,
+        @Path("detail_pk") detail_pk: Int
     ): Call<LockResponseBody>
 }

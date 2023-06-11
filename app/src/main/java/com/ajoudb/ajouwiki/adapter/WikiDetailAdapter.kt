@@ -51,7 +51,7 @@ class WikiDetailAdapter internal constructor(var wikiDetail: List<WikiDetail>)
     }
 
     interface ItemClickListener{
-        fun onClick(view: View,position: Int)
+        fun onClick(view: View, position: Int)
     }
     //를릭 리스너
     private lateinit var itemClickListener: ItemClickListener

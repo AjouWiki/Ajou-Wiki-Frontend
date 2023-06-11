@@ -57,10 +57,23 @@ class EditWikiDetailActivity : AppCompatActivity() {
     }
 
     private fun editWikiDetail(){
+        val id=getId()
+        val title=binding.title.text.toString()
+        val description=binding.editText.getMD()
+        val wikiId=getWikiId()
         val onSuccess: () -> Unit = {
-            Toast.makeText(this@EditWikiDetailActivity,
-                "업로드 완료.", Toast.LENGTH_SHORT).show()
-            finish()
+            val onSuccessUnlock: () -> Unit = {
+                Toast.makeText(this@EditWikiDetailActivity,
+                    "업로드 완료.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            val onFailureUnlock: () -> Unit = {
+                Toast.makeText(this@EditWikiDetailActivity,
+                    "업로드 완료.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            val retrofitWork = RetrofitWork()
+            retrofitWork.unlockWork(wikiId, id, onSuccessUnlock, onFailureUnlock)
         }
         val onFailure : () -> Unit = {
             Toast.makeText(this@EditWikiDetailActivity,
@@ -68,10 +81,7 @@ class EditWikiDetailActivity : AppCompatActivity() {
             binding.complete.isEnabled = true
         }
 
-        val id=getId()
-        val title=binding.title.text.toString()
-        val description=binding.editText.getMD()
-        val wikiId=getWikiId()
+
         val retrofitWork = RetrofitWork()
         val wikiDetail = AddWikiDetailRequestBody(title=title, description = description)
         retrofitWork.editWikiDetailWork(wikiDetail, wikiId, id, onSuccess, onFailure)

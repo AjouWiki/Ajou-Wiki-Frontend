@@ -9,6 +9,9 @@ import com.ajoudb.ajouwiki.network.checkemail.CheckEmailRequestBody
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailResponseBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdRequestBody
 import com.ajoudb.ajouwiki.network.checkid.CheckIdResponseBody
+import com.ajoudb.ajouwiki.network.lock.GetLockResponseBody
+import com.ajoudb.ajouwiki.network.lock.LockResponseBody
+import com.ajoudb.ajouwiki.network.lock.UnlockResponseBody
 import com.ajoudb.ajouwiki.network.search.SearchResponseBody
 import com.ajoudb.ajouwiki.network.signin.SignInRequestBody
 import com.ajoudb.ajouwiki.network.signin.SignInResponseBody
@@ -20,6 +23,7 @@ import com.ajoudb.ajouwiki.network.wiki.EditWikiRequestBody
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
 import retrofit2.Call
 import retrofit2.Response
+import java.util.Date
 
 class RetrofitWork {
     fun signInWork(userInfo: SignInRequestBody,
@@ -235,7 +239,6 @@ class RetrofitWork {
                     response: Response<AddWikiDetailResponseBody>
                 ) {
                     if (response.isSuccessful) {
-                        val result = response.body()
                         val statusCode = response.code()
                         if (statusCode == 200) {
                             onSuccess()
@@ -261,7 +264,6 @@ class RetrofitWork {
                     response: Response<AddWikiDetailResponseBody>
                 ) {
                     if (response.isSuccessful) {
-                        val result = response.body()
                         val statusCode = response.code()
                         if (statusCode == 200) {
                             onSuccess()
@@ -287,7 +289,6 @@ class RetrofitWork {
                     response: Response<AddWikiResponseBody>
                 ) {
                     if (response.isSuccessful) {
-                        val result = response.body()
                         val statusCode = response.code()
                         if (statusCode == 200) {
                             onSuccess()
@@ -302,4 +303,74 @@ class RetrofitWork {
             })
     }
 
+    fun getLockWork(id: Int, detail_pk: Int,
+                    onSuccess: () -> Unit, onFailure: (expiredAt: String) -> Unit) {
+        val service = RetrofitAPI.getLockService
+
+        service.getLockByEnqueue(id, detail_pk)
+            .enqueue(object : retrofit2.Callback<GetLockResponseBody> {
+                override fun onResponse(
+                    call: Call<GetLockResponseBody>,
+                    response: Response<GetLockResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        if (result?.result == false) onSuccess()
+                        else {
+                            onFailure(result?.expired_at!!)
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<GetLockResponseBody>, t: Throwable) {
+                    onFailure("Fail")
+                }
+            })
+    }
+    fun lockWork(id: Int, detail_pk: Int,
+                    onSuccess: () -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.lockService
+
+        service.lockByEnqueue(id, detail_pk)
+            .enqueue(object : retrofit2.Callback<LockResponseBody> {
+                override fun onResponse(
+                    call: Call<LockResponseBody>,
+                    response: Response<LockResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        if (result?.status == 200) onSuccess()
+                        else {
+                            onFailure()
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<LockResponseBody>, t: Throwable) {
+                    onFailure()
+
+                }
+            })
+    }
+    fun unlockWork(id: Int, detail_pk: Int,
+                    onSuccess: () -> Unit, onFailure: () -> Unit) {
+        val service = RetrofitAPI.unlockService
+
+        service.unlockByEnqueue(id, detail_pk)
+            .enqueue(object : retrofit2.Callback<UnlockResponseBody> {
+                override fun onResponse(
+                    call: Call<UnlockResponseBody>,
+                    response: Response<UnlockResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        if (result?.status == 200) onSuccess()
+                        else {
+                            onFailure()
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<UnlockResponseBody>, t: Throwable) {
+                    onFailure()
+                }
+            })
+    }
 }

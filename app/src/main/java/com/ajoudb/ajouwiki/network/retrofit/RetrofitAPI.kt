@@ -4,6 +4,9 @@ import com.ajoudb.ajouwiki.TokenManager
 import com.ajoudb.ajouwiki.network.wiki.AddWikiService
 import com.ajoudb.ajouwiki.network.checkemail.CheckEmailService
 import com.ajoudb.ajouwiki.network.checkid.CheckIdService
+import com.ajoudb.ajouwiki.network.lock.GetLockService
+import com.ajoudb.ajouwiki.network.lock.LockService
+import com.ajoudb.ajouwiki.network.lock.UnlockService
 import com.ajoudb.ajouwiki.network.search.SearchService
 import com.ajoudb.ajouwiki.network.signin.SignInService
 import com.ajoudb.ajouwiki.network.signup.SignUpService
@@ -199,5 +202,71 @@ object RetrofitAPI {
             .build()
 
         retrofit.create(EditWikiService::class.java)
+    }
+
+    val getLockService: GetLockService by lazy{
+        val authToken = TokenManager.getToken()
+        val authenticatedHttpClient = okHttpClient.newBuilder()
+            .addInterceptor { chain ->
+                val originalRequest = chain.request()
+                val newRequest = originalRequest.newBuilder()
+                    .addHeader("Jwt", "$authToken")
+                    .build()
+
+                chain.proceed(newRequest)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(authenticatedHttpClient)
+            .build()
+
+        retrofit.create(GetLockService::class.java)
+    }
+
+    val lockService: LockService by lazy{
+        val authToken = TokenManager.getToken()
+        val authenticatedHttpClient = okHttpClient.newBuilder()
+            .addInterceptor { chain ->
+                val originalRequest = chain.request()
+                val newRequest = originalRequest.newBuilder()
+                    .addHeader("Jwt", "$authToken")
+                    .build()
+
+                chain.proceed(newRequest)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(authenticatedHttpClient)
+            .build()
+
+        retrofit.create(LockService::class.java)
+    }
+
+    val unlockService: UnlockService by lazy{
+        val authToken = TokenManager.getToken()
+        val authenticatedHttpClient = okHttpClient.newBuilder()
+            .addInterceptor { chain ->
+                val originalRequest = chain.request()
+                val newRequest = originalRequest.newBuilder()
+                    .addHeader("Jwt", "$authToken")
+                    .build()
+
+                chain.proceed(newRequest)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(authenticatedHttpClient)
+            .build()
+
+        retrofit.create(UnlockService::class.java)
     }
 }

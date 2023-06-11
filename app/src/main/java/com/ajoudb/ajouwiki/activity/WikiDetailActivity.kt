@@ -1,16 +1,24 @@
 package com.ajoudb.ajouwiki.activity
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.ajoudb.ajouwiki.EditWikiAlertDialog
+import com.ajoudb.ajouwiki.R
 import com.ajoudb.ajouwiki.adapter.WikiDetailAdapter
 import com.ajoudb.ajouwiki.databinding.ActivityWikiDetailBinding
 import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.wiki.EditWikiRequestBody
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 class WikiDetailActivity : AppCompatActivity() {
     private var mBinding: ActivityWikiDetailBinding?= null
@@ -85,8 +93,8 @@ class WikiDetailActivity : AppCompatActivity() {
                 tags += " "
             }
             originTags = tags
-            if(tags.length>30) {
-                tags = tags.substring(0..30) + "..."
+            if(tags.length>26) {
+                tags = tags.substring(0..26) + "..."
             }
 
             binding.tag.text = tags
@@ -97,24 +105,66 @@ class WikiDetailActivity : AppCompatActivity() {
                 binding.empty.visibility = View.INVISIBLE
             }
 
-            binding.wikiDetailList.adapter = WikiDetailAdapter(it.result.wiki_details!!).apply{
+            binding.wikiDetailList.adapter = WikiDetailAdapter(it.result.wiki_details).apply{
                 setItemClickListener(
                     object : WikiDetailAdapter.ItemClickListener {
+                        @RequiresApi(Build.VERSION_CODES.O)
                         override fun onClick(view: View, position: Int) {
-                            val id = wikiDetail[position].id
+                            val id = wikiDetail[position].id // detail_pk
                             val title = wikiDetail[position].title
                             val description = wikiDetail[position].description
-                            val wikiId = wikiDetail[position].wiki_id
+                            val wikiId = wikiDetail[position].wiki_id // wiki_id
 
                             val intent = Intent(this@WikiDetailActivity, EditWikiDetailActivity::class.java)
 
-                            intent.apply {
-                                this.putExtra("id", id) // 데이터 넣기
-                                this.putExtra("title", title)
-                                this.putExtra("description", description)
-                                this.putExtra("wikiId", wikiId)
+                            val onSuccess: () -> Unit = {
+                                val onSuccessLock: () -> Unit = {
+                                    intent.apply {
+                                        this.putExtra("id", id) // 데이터 넣기
+                                        this.putExtra("title", title)
+                                        this.putExtra("description", description)
+                                        this.putExtra("wikiId", wikiId)
+                                    }
+                                    startActivity(intent)
+                                }
+                                val onFailureLock: () -> Unit = {
+                                    // lock 실패
+                                    Toast.makeText(this@WikiDetailActivity,
+                                        "다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                                }
+                                val retrofitWork = RetrofitWork()
+                                retrofitWork.lockWork(wikiId!!, id!!, onSuccessLock, onFailureLock)
+
                             }
-                            startActivity(intent)
+
+                            val onFailure: (err: String) -> Unit = { err ->
+                                if (err == "fail") {
+                                    // 네트워크 에러
+                                    Toast.makeText(this@WikiDetailActivity,
+                                        "다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                                }
+                                else {
+                                    // 다른 사람이 수정중
+                                    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+                                    val offsetDateTime = OffsetDateTime.parse(err, formatter)
+                                    val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                                    val output = outputFormatter.format(offsetDateTime)
+
+                                    val builder = MaterialAlertDialogBuilder(this@WikiDetailActivity)
+                                    builder.setTitle("다른 사람이 수정중입니다")
+                                        .setMessage("$output 이후에 다시 시도해주세요.")
+                                        .setPositiveButton(getString(R.string.text_confirm)) {
+                                                dialog, _ -> dialog.dismiss()
+                                        }
+                                    builder.show()
+
+                                }
+
+                            }
+                            // TODO: LOCK 확인
+                            val retrofitWork = RetrofitWork()
+                            retrofitWork.getLockWork(wikiId!!, id!!, onSuccess, onFailure)
+
                         }
                     })
             }

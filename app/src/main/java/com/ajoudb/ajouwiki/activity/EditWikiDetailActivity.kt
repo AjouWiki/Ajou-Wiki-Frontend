@@ -86,4 +86,25 @@ class EditWikiDetailActivity : AppCompatActivity() {
         val wikiDetail = AddWikiDetailRequestBody(title=title, description = description)
         retrofitWork.editWikiDetailWork(wikiDetail, wikiId, id, onSuccess, onFailure)
     }
+
+    private fun unlock(){
+        val id=getId()
+        val wikiId=getWikiId()
+
+        val onSuccessUnlock: () -> Unit = {
+            Toast.makeText(this@EditWikiDetailActivity,
+                "unlock!", Toast.LENGTH_SHORT).show()
+        }
+        val onFailureUnlock: () -> Unit = {
+            Toast.makeText(this@EditWikiDetailActivity,
+                "unlock failed...", Toast.LENGTH_SHORT).show()
+        }
+        val retrofitWork = RetrofitWork()
+        retrofitWork.unlockWork(wikiId, id, onSuccessUnlock, onFailureUnlock)
+    }
+
+    override fun onBackPressed() {
+        unlock()
+        super.onBackPressed()
+    }
 }

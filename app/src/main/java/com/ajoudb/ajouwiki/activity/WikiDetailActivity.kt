@@ -15,10 +15,6 @@ import com.ajoudb.ajouwiki.network.retrofit.RetrofitWork
 import com.ajoudb.ajouwiki.network.wiki.EditWikiRequestBody
 import com.ajoudb.ajouwiki.network.wiki.WikiDetailResponseBody
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 
 class WikiDetailActivity : AppCompatActivity() {
     private var mBinding: ActivityWikiDetailBinding?= null
@@ -145,14 +141,13 @@ class WikiDetailActivity : AppCompatActivity() {
                                 }
                                 else {
                                     // 다른 사람이 수정중
-                                    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
-                                    val offsetDateTime = OffsetDateTime.parse(err, formatter)
-                                    val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                                    val output = outputFormatter.format(offsetDateTime)
+//                                    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+//                                    val offsetDateTime = OffsetDateTime.parse(err, formatter)
+//                                    val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
                                     val builder = MaterialAlertDialogBuilder(this@WikiDetailActivity)
                                     builder.setTitle("다른 사람이 수정중입니다")
-                                        .setMessage("$output 이후에 다시 시도해주세요.")
+                                        .setMessage("$err 이후에 다시 시도해주세요.")
                                         .setPositiveButton(getString(R.string.text_confirm)) {
                                                 dialog, _ -> dialog.dismiss()
                                         }

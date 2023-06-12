@@ -92,12 +92,12 @@ class EditWikiDetailActivity : AppCompatActivity() {
         val wikiId=getWikiId()
 
         val onSuccessUnlock: () -> Unit = {
-            Toast.makeText(this@EditWikiDetailActivity,
-                "unlock!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@EditWikiDetailActivity,
+//                "unlock!", Toast.LENGTH_SHORT).show()
         }
         val onFailureUnlock: () -> Unit = {
-            Toast.makeText(this@EditWikiDetailActivity,
-                "unlock failed...", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@EditWikiDetailActivity,
+//                "unlock failed...", Toast.LENGTH_SHORT).show()
         }
         val retrofitWork = RetrofitWork()
         retrofitWork.unlockWork(wikiId, id, onSuccessUnlock, onFailureUnlock)
